@@ -32,6 +32,8 @@ import com.google.zxing.EncodeHintType;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
+import org.tginfo.telegram.messenger.BuildConfig;
+import org.tginfo.telegram.messenger.R;
 import org.telegram.ui.Wallet.WalletConfigLoader;
 
 import java.io.File;

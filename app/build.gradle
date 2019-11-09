@@ -23,7 +23,7 @@ android {
     compileSdkVersion 29
     buildToolsVersion '29.0.2'
 
-    defaultConfig.applicationId = "org.telegram.messenger.wallet"
+    defaultConfig.applicationId = "org.tginfo.telegram.messenger.wallet"
 
     sourceSets.main.jniLibs.srcDirs = ['./jni/']
 

@@ -11,7 +11,7 @@ import android.content.Context;
 import android.view.View;
 
 import org.telegram.messenger.AndroidUtilities;
-import org.telegram.messenger.R;
+import org.tginfo.telegram.messenger.R;
 import org.telegram.ui.ActionBar.Theme;
 
 public class ShadowSectionCell extends View {

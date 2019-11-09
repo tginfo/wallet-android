@@ -14,6 +14,7 @@ import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.text.format.DateFormat;
 
+import org.tginfo.telegram.messenger.R;
 import org.telegram.messenger.time.FastDateFormat;
 
 import java.util.Calendar;
