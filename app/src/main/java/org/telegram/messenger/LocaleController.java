@@ -112,7 +112,7 @@ public class LocaleController {
         is24HourFormat = DateFormat.is24HourFormat(ApplicationLoader.applicationContext);
         boolean override = false;
 
-        applyLanguage();
+        //applyLanguage();
 
         try {
             IntentFilter timezoneFilter = new IntentFilter(Intent.ACTION_TIMEZONE_CHANGED);
