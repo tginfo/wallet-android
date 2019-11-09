@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="AppName">Wallet</string>
+    <string name="AppName">Gram Wallet</string>
     <string name="ClearButton">Очистить</string>
     <string name="ErrorOccurred">Произошла ошибка.</string>
     <string name="TextCopied">Текст скопирован в буфер</string>
@@ -40,7 +40,7 @@
     <string name="WalletScanImageNotFound">Адрес кошелька на укзанном изображении не найден.</string>
     <string name="WalletScanCodeNotFound">Адрес кошелька не найден</string>
     <string name="GramWallet">Gram Wallet</string>
-    <string name="CreateMyWallet">Create My Wallet</string>
+    <string name="CreateMyWallet">Создать кошелёк</string>
     <string name="ImportExistingWallet">Импорт кошелька</string>
     <string name="WalletCongratulations">Поздравляем</string>
     <string name="WalletCongratulationsinfo">Ваш Gram-колешёк был создан. Только вы его контролируете.\n\nЧтобы не потерять к нему доступ, запишите секретные слова и установить надёжный пароль.</string>
