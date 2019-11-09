@@ -123,7 +123,7 @@
     <string name="WalletEnterPasscode">Введите пароль</string>
     <string name="WalletPasscodeLength">Ваш пароль содержит %1$s.</string>
     <string name="WalletSendingGrams">Отправка Gram</string>
-    <string name="WalletSendingGramsInfo">Подожите пару секунд для обработки транзакции...</string>
+    <string name="WalletSendingGramsInfo">Подождите пару секунд для обработки транзакции...</string>
     <string name="WalletSendConfirmCredentials">Подтвердите ваши учётные данные для отправки Gram.</string>
     <string name="WalletExportConfirmContinue">Подтвердите ваши учётные данные для продолжения.</string>
     <string name="WalletExportConfirmCredentials">Подтвердите ваши учётные данные для экспорта кошлька.</string>
