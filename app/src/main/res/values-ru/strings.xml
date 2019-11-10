@@ -34,10 +34,10 @@
     <string name="November">Ноябрь</string>
     <string name="December">Декабрь</string>
     <!--wallet-->
-    <string name="Wallet">Wallet</string>
+    <string name="Wallet">Кошелёк</string>
     <string name="WalletScanCode">Сканировать QR-код</string>
     <string name="WalletQRCode">QR-код</string>
-    <string name="WalletScanImageNotFound">Адрес кошелька на укзанном изображении не найден.</string>
+    <string name="WalletScanImageNotFound">Адрес кошелька на указанном изображении не найден.</string>
     <string name="WalletScanCodeNotFound">Адрес кошелька не найден</string>
     <string name="GramWallet">Gram Wallet</string>
     <string name="CreateMyWallet">Создать кошелёк</string>
@@ -92,7 +92,7 @@
     <string name="WalletCreated">Кошелёк создан</string>
     <string name="WalletYourAddress">Адрес вашего кошелька</string>
     <string name="WalletFrom">от:</string>
-    <string name="WalletTo">кому:</string>
+    <string name="WalletTo">на:</string>
     <string name="WalletReceiveYourAddress">Адрес вашего кошелька</string>
     <string name="WalletCopyAddress">Копировать адрес кошелька</string>
     <string name="WalletCreateInvoice">Выставить счёт</string>
@@ -179,8 +179,8 @@
     <string name="WalletConfigTypeUrlHeader">Указать ссылку</string>
     <string name="WalletConfigTypeJsonHint">Вставьте json-конфиг</string>
     <string name="WalletConfigTypeUrlHint">Вставьте ссылку на конфиг</string>
-    <string name="WalletBlockchainNameHint">Введите ID блокчина</string>
-    <string name="WalletBlockchainNameInfo">Эта настройка для разработчиков. Изменяйте её только если вы создаёте свою сеть TON.</string>
+    <string name="WalletBlockchainNameHint">Введите ID блокчеина</string>
+    <string name="WalletBlockchainNameInfo">Эта настройка для разработчиков. Изменяйте её, только если вы создаёте свою сеть TON.</string>
     <string name="WalletBlockchainNameWarning">Вы точно хотите изменить ID блокчеина? Вам не нужно этого делать, если только вы не тестируюете свою сеть TON.\n\nЕсли вы продолжите, вам нужно будет переподключить кошелёк используя 24 секретных слова.</string>
     <string name="WalletError">Ошибка</string>
     <string name="WalletBlockchainConfigLoadError">Приложение не смогло загрузить конфигурацию блокчеина по данной ссылке. Убедитесь, что ссылка правильная и у вас работает интернет-соединение.</string>
