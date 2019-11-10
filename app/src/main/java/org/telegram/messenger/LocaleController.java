@@ -112,7 +112,7 @@ public class LocaleController {
         is24HourFormat = DateFormat.is24HourFormat(ApplicationLoader.applicationContext);
         boolean override = false;
 
-        //applyLanguage();
+        applyLanguage();
 
         try {
             IntentFilter timezoneFilter = new IntentFilter(Intent.ACTION_TIMEZONE_CHANGED);
@@ -234,8 +234,8 @@ public class LocaleController {
 
     public void applyLanguage() {
         try {
-            currentLocale = new Locale("en");
-            currentPluralRules = allRules.get("en");
+            currentLocale = new Locale("ru");
+            currentPluralRules = allRules.get("ru");
             changingConfiguration = true;
             Locale.setDefault(currentLocale);
             android.content.res.Configuration config = new android.content.res.Configuration();
