@@ -109,7 +109,7 @@ public class UserConfig extends BaseController {
             walletConfig = preferences.getString("walletConfig", "");
             walletConfigUrl = preferences.getString("walletConfigUrl", "https://test.ton.org/config.json");
             walletConfigType = preferences.getInt("walletConfigType", TonController.CONFIG_TYPE_URL);
-            walletBlockchainName = preferences.getString("walletBlockchainName", "testnet");
+            walletBlockchainName = preferences.getString("walletBlockchainName", "testnet2");
             walletConfigFromUrl = preferences.getString("walletConfigFromUrl", "");
 
             configLoaded = true;
