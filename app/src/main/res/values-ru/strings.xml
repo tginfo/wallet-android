@@ -97,7 +97,7 @@
     <string name="WalletCopyAddress">Копировать адрес кошелька</string>
     <string name="WalletCreateInvoice">Выставить счёт</string>
     <string name="WalletShareAddress">Поделиться адресом кошелька</string>
-    <string name="WalletUpdatedFewSecondsAgo">обновлено несколько секунд назад</string>
+    <string name="WalletUpdatedFewSecondsAgo">обновлено только что</string>
     <string name="WalletUpdatedTimeAgo">обновлено %1$s назад</string>
     <string name="WalletSwipeToRefresh">Потяните вниз для обновления</string>
     <string name="WalletReleaseToRefresh">Отпустите для обновления</string>
@@ -114,7 +114,7 @@
     <string name="WalletShareInfo">Поделитесь этой ссылкой с другим владельцем\nкошелька Gram, чтобы получить Gram от них.</string>
     <string name="WalletTestShareInfo">Поделитесь этой ссылкой, чтобы получить тестовые Gram. Важно: эта ссылка не будет работать для настоящих токенов Gram.</string>
     <string name="WalletShareInvoiceUrlInfo">Поделитесь этой ссылкой с другим владельцем кошелька Gram, чтобы получить от них **%1$s Gram**.</string>
-    <string name="WalletTestShareInvoiceUrlInfo">Поделитесь этой ссылкой, чтобы получить от них **%1$s тестовых Gram**.\nИмейте в виду: эта ссылка не будет работать для настоящих Gram.</string>
+    <string name="WalletTestShareInvoiceUrlInfo">Поделитесь ссылкой для получения **%1$s Gram**. **Внимание:** эта ссылка не будет работать с настоящими грамами.</string>
     <string name="WalletCreateInvoiceTitle">Выставить счёт</string>
     <string name="WalletYourInvoice">Ваш счёт</string>
     <string name="WalletConfirmation">Подтверждения</string>
@@ -161,7 +161,7 @@
     <string name="WalletBlockchainFees">комиссия блокчейна: %1$s</string>
     <string name="WalletInsufficientGramsTitle">Недостаточно Gram</string>
     <string name="WalletInsufficientGramsText">К сожалению, перевод не может быть осуществлён. У вас недостаточно Gram.</string>
-    <string name="WalletSendSameWalletText">Отправка Gram на свой кошелёк бессмысленна, вы просто поратите часть суммы на комиссию блокчейна.</string>
+    <string name="WalletSendSameWalletText">Отправка Gram на свой кошелёк бессмысленна, вы просто потратите часть суммы на комиссию блокчейна.</string>
     <string name="WalletSendSameWalletProceed">Продолжить</string>
     <string name="WalletTonLinkNoWalletText">Эта ссылка может использоваться для отправки денег в TON Blockchain. Чтобы это сделать, вам нужно вначале создать кошелёк Gram.</string>
     <string name="WalletTonLinkNoWalletCreateWallet">Создать кошелёк</string>
