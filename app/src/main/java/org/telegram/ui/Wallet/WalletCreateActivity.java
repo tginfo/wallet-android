@@ -57,7 +57,7 @@ import org.telegram.messenger.ApplicationLoader;
 import org.telegram.messenger.BuildVars;
 import org.telegram.messenger.FileLog;
 import org.telegram.messenger.LocaleController;
-import org.telegram.messenger.R;
+import org.tginfo.telegram.messenger.R;
 import org.telegram.messenger.TonController;
 import org.telegram.messenger.UserConfig;
 import org.telegram.messenger.Utilities;

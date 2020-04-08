@@ -31,7 +31,7 @@ import android.os.Build;
 import android.util.StateSet;
 
 import org.telegram.messenger.AndroidUtilities;
-import org.telegram.messenger.R;
+import org.tginfo.telegram.messenger.R;
 import org.telegram.ui.Components.CombinedDrawable;
 import org.telegram.messenger.ApplicationLoader;
 

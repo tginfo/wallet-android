@@ -14,6 +14,7 @@ import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.text.format.DateFormat;
 
+import org.tginfo.telegram.messenger.R;
 import org.telegram.messenger.time.FastDateFormat;
 
 import java.util.Calendar;
@@ -233,8 +234,8 @@ public class LocaleController {
 
     public void applyLanguage() {
         try {
-            currentLocale = new Locale("en");
-            currentPluralRules = allRules.get("en");
+            currentLocale = new Locale("ru");
+            currentPluralRules = allRules.get("ru");
             changingConfiguration = true;
             Locale.setDefault(currentLocale);
             android.content.res.Configuration config = new android.content.res.Configuration();

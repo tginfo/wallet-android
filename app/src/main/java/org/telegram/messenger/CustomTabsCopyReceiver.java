@@ -12,6 +12,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
+import org.tginfo.telegram.messenger.R;
+
 public class CustomTabsCopyReceiver extends BroadcastReceiver {
 
     @Override
