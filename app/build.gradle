@@ -23,7 +23,7 @@ android {
     buildToolsVersion '29.0.3'
     ndkVersion "20.0.5594570"
 
-    defaultConfig.applicationId = "org.telegram.messenger.wallet"
+    defaultConfig.applicationId = "org.tginfo.telegram.messenger.wallet"
 
     sourceSets.main.jniLibs.srcDirs = ['./jni/']
 
@@ -154,7 +154,7 @@ android {
         }
     }
 
-    defaultConfig.versionCode = 1041
+    defaultConfig.versionCode = 1042
 
     applicationVariants.all { variant ->
         variant.outputs.all { output ->
