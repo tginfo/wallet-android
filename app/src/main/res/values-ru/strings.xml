@@ -189,6 +189,9 @@
     <string name="WalletSendSyncInProgress">Пожалуйста, подождите, пока кошелёк завершит синхронизацию с блокчейном TON.</string>
     <string name="GramWalletInfo">Кошелёк Gram позволяет вам совершать быстрые и надёжные переводы на основе блокчейна без посредников.</string>
     <string name="WalletDeleteInfo">Это действие отключит кошелёк от приложения. Вы сможете восстановить кошелёк, введя 24 секретных слова – или импортировать другой кошелёк.\n\nКошельки расположены внутри блокчейна TON, который не контролируется Telegram. Если вы хотите удалить кошелёк, просто переведите с него все Gram и оставьте пустым.</string>
+    <string name="WalletEncryptedMessage">Зашифрованное сообщение</string>
+    <string name="WalletDecryptConfirmCredentials">Пожалуйста подтвердите свои данные для расшифровки сообщений транзакций.</string>
+    <string name="WalletCantEncryptComment">**Внимание:** Ваш комментарий \"%1$s\" **не будет зашифрован**.</string>
     <string name="WalletTosUrl"> </string>
     <string name="CreateMyWalletTerms"> </string>
     <!--plural-->
