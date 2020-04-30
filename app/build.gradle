@@ -13,7 +13,7 @@ configurations {
 
 dependencies {
     implementation 'androidx.core:core:1.1.0-beta01'
-    implementation 'androidx.exifinterface:exifinterface:1.1.0'
+    implementation 'androidx.exifinterface:exifinterface:1.2.0'
 
     implementation 'com.google.android.gms:play-services-vision:16.2.0'
 }
@@ -188,7 +188,7 @@ android {
     defaultConfig {
         minSdkVersion 18
         targetSdkVersion 28
-        versionName "1.1.2"
+        versionName "1.2"
 
         vectorDrawables.generatedDensities = ['mdpi', 'hdpi', 'xhdpi', 'xxhdpi']
 
