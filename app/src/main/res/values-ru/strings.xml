@@ -87,6 +87,7 @@
     <string name="WalletSendDone">Готово!</string>
     <string name="WalletSendDoneText">%1$s Gram было отправлено на</string>
     <string name="WalletYourBalance">Ваш баланс</string>
+    <string name="WalletYourTestBalance">Ваш тестовый ыбаланс</string>
     <string name="WalletReceive">Получить</string>
     <string name="WalletSend">Отправить</string>
     <string name="WalletCreated">Кошелёк создан</string>

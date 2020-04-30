@@ -39,7 +39,6 @@ import org.telegram.messenger.BuildConfig;
 import org.telegram.messenger.BuildVars;
 import org.telegram.messenger.FileLog;
 import org.telegram.messenger.LocaleController;
-import org.tginfo.telegram.messenger.R;
 import org.telegram.messenger.TonController;
 import org.telegram.messenger.UserConfig;
 import org.telegram.messenger.Utilities;
@@ -60,6 +59,7 @@ import org.telegram.ui.Components.CombinedDrawable;
 import org.telegram.ui.Components.EditTextBoldCursor;
 import org.telegram.ui.Components.LayoutHelper;
 import org.telegram.ui.Components.RecyclerListView;
+import org.tginfo.telegram.messenger.R;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
