@@ -87,7 +87,8 @@
     <string name="WalletSendDone">Готово!</string>
     <string name="WalletSendDoneText">%1$s Gram было отправлено на</string>
     <string name="WalletYourBalance">Ваш баланс</string>
-    <string name="WalletYourTestBalance">Ваш тестовый ыбаланс</string>
+    <string name="WalletYourTestBalance">Ваш тестовый баланс</string>
+	<string name="WalletLockedBalance">%1$s * заблокировано</string>
     <string name="WalletReceive">Получить</string>
     <string name="WalletSend">Отправить</string>
     <string name="WalletCreated">Кошелёк создан</string>
@@ -112,7 +113,7 @@
     <string name="WalletComment">Комментарий (необязательно)</string>
     <string name="WalletInvoiceInfo">Вы можете указать сумму и назначение платежа, чтобы упростить жизнь отправителю:</string>
     <string name="WalletShareInvoiceUrl">Поделиться ссылкой на счёт</string>
-    <string name="WalletShareInfo">Поделитесь этой ссылкой с другим владельцем\nкошелька Gram, чтобы получить Gram от них.</string>
+    <string name="WalletShareInfo">Поделитесь ссылкой, чтобы получить Gram от других пользователей кошельков Gram.</string>
     <string name="WalletTestShareInfo">Поделитесь этой ссылкой, чтобы получить тестовые Gram. Важно: эта ссылка не будет работать для настоящих токенов Gram.</string>
     <string name="WalletShareInvoiceUrlInfo">Поделитесь этой ссылкой с другим владельцем кошелька Gram, чтобы получить от них **%1$s Gram**.</string>
     <string name="WalletTestShareInvoiceUrlInfo">Поделитесь ссылкой для получения **%1$s Gram**. **Внимание:** эта ссылка не будет работать с настоящими грамами.</string>
@@ -193,7 +194,13 @@
     <string name="WalletEncryptedMessage">Зашифрованное сообщение</string>
     <string name="WalletDecryptConfirmCredentials">Пожалуйста подтвердите свои данные для расшифровки сообщений транзакций.</string>
     <string name="WalletCantEncryptComment">**Внимание:** Ваш комментарий \"%1$s\" **не будет зашифрован**.</string>
-    <string name="WalletTosUrl"> </string>
+    <string name="WalletTestNetworkSwitch">Вы уверены, что хотите переключиться на тестовую сеть testnet? Она предназначена только для тестирования.\n\nЕсли вы продолжите, вам потребуется повторно добавить свой кошелек, используя 24 секретных слова.</string>
+    <string name="WalletMainNetworkSwitch">Вы уверены, что хотите переключиться на основную сеть mainnet?\n\nЕсли вы продолжите, вам нужно будет повторно добавить или создать свой кошелек, используя 24 секретных слова.</string>
+    <string name="WalletMainNetwork">Основная сеть</string>
+    <string name="WalletTestNetwork">Тестовая сеть</string>
+    <string name="WalletEmptyTransaction">Пустая транзакция</string>
+    <string name="WalletInitTransaction">Инициализация кошелька</string>
+	<string name="WalletTosUrl"> </string>
     <string name="CreateMyWalletTerms"> </string>
     <!--plural-->
     <string name="Digits_zero">%1$d цифр</string>

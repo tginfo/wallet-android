@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="AppName">Wallet</string>
+    <string name="AppName">Gram Wallet</string>
     <string name="ClearButton">Clear</string>
     <string name="ErrorOccurred">An error occurred.</string>
     <string name="TextCopied">Text copied to clipboard</string>
