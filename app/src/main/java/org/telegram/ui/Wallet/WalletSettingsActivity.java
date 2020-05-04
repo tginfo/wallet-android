@@ -526,7 +526,7 @@ public class WalletSettingsActivity extends BaseFragment {
                 if (browserIntent.resolveActivity(context.getPackageManager()) != null)
                     context.startActivity(browserIntent);
             } else if (position == whereGramBotRow) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/test_ton_bot "));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/test_ton_bot"));
                 if (browserIntent.resolveActivity(context.getPackageManager()) != null)
                     context.startActivity(browserIntent);
             } else if (position == feedbackRuChatRow) {
@@ -876,7 +876,7 @@ public class WalletSettingsActivity extends BaseFragment {
                         cell.setTextColor(Theme.getColor(Theme.key_windowBackgroundWhiteBlackText));
                         cell.setTag(Theme.key_windowBackgroundWhiteBlackText);
                     } else if (position == feedbackRuChatRow) {
-                        cell.setText(LocaleController.getString("WalletFeedbackRuChat", R.string.WalletFeedbackRuChat), false);
+                        cell.setText(LocaleController.getString("WalletFeedbackRuChat", R.string.WalletFeedbackRuChat), feedbackEnChatRow != -1);
                         cell.setTextColor(Theme.getColor(Theme.key_windowBackgroundWhiteBlackText));
                         cell.setTag(Theme.key_windowBackgroundWhiteBlackText);
                     } else if (position == changePasscodeRow) {
