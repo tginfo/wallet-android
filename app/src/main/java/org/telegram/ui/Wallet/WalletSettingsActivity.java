@@ -35,7 +35,6 @@ import android.widget.Toast;
 import org.json.JSONObject;
 import org.telegram.messenger.AndroidUtilities;
 import org.telegram.messenger.ApplicationLoader;
-import org.telegram.messenger.BuildConfig;
 import org.telegram.messenger.BuildVars;
 import org.telegram.messenger.FileLog;
 import org.telegram.messenger.LocaleController;
@@ -59,6 +58,7 @@ import org.telegram.ui.Components.CombinedDrawable;
 import org.telegram.ui.Components.EditTextBoldCursor;
 import org.telegram.ui.Components.LayoutHelper;
 import org.telegram.ui.Components.RecyclerListView;
+import org.tginfo.telegram.messenger.BuildConfig;
 import org.tginfo.telegram.messenger.R;
 
 import java.io.BufferedInputStream;
@@ -118,6 +118,7 @@ public class WalletSettingsActivity extends BaseFragment {
     private int walletSectionRow;
     private int deleteRow;
     private int deleteSectionRow;
+    private int appVersionRow;
     private int sendLogsRow;
     private int clearLogsRow;
     private int rowCount;
@@ -187,11 +188,11 @@ public class WalletSettingsActivity extends BaseFragment {
 
         if (currentType == TYPE_SERVER) {
             UserConfig userConfig = getUserConfig();
-            blockchainName = new String[] {userConfig.getWalletBlockchainName(UserConfig.NETWORK_TYPE_TEST), userConfig.getWalletBlockchainName(UserConfig.NETWORK_TYPE_MAIN)};
-            blockchainJson = new String[] {userConfig.getWalletConfig(UserConfig.NETWORK_TYPE_TEST), userConfig.getWalletConfig(UserConfig.NETWORK_TYPE_MAIN)};
-            blockchainConfigFromUrl = new String[] {userConfig.getWalletConfigFromUrl(UserConfig.NETWORK_TYPE_TEST), userConfig.getWalletConfigFromUrl(UserConfig.NETWORK_TYPE_MAIN)};
-            blockchainUrl = new String[] {userConfig.getWalletConfigUrl(UserConfig.NETWORK_TYPE_TEST), userConfig.getWalletConfigUrl(UserConfig.NETWORK_TYPE_MAIN)};
-            configType = new int[] {userConfig.getWalletConfigType(UserConfig.NETWORK_TYPE_TEST), userConfig.getWalletConfigType(UserConfig.NETWORK_TYPE_MAIN)};
+            blockchainName = new String[]{userConfig.getWalletBlockchainName(UserConfig.NETWORK_TYPE_TEST), userConfig.getWalletBlockchainName(UserConfig.NETWORK_TYPE_MAIN)};
+            blockchainJson = new String[]{userConfig.getWalletConfig(UserConfig.NETWORK_TYPE_TEST), userConfig.getWalletConfig(UserConfig.NETWORK_TYPE_MAIN)};
+            blockchainConfigFromUrl = new String[]{userConfig.getWalletConfigFromUrl(UserConfig.NETWORK_TYPE_TEST), userConfig.getWalletConfigFromUrl(UserConfig.NETWORK_TYPE_MAIN)};
+            blockchainUrl = new String[]{userConfig.getWalletConfigUrl(UserConfig.NETWORK_TYPE_TEST), userConfig.getWalletConfigUrl(UserConfig.NETWORK_TYPE_MAIN)};
+            configType = new int[]{userConfig.getWalletConfigType(UserConfig.NETWORK_TYPE_TEST), userConfig.getWalletConfigType(UserConfig.NETWORK_TYPE_MAIN)};
             networkType = userConfig.getCurrentNetworkType();
         }
         updateRows();
@@ -213,6 +214,7 @@ public class WalletSettingsActivity extends BaseFragment {
         walletSectionRow = -1;
         deleteRow = -1;
         deleteSectionRow = -1;
+        appVersionRow = -1;
         serverSettingsRow = -1;
         blockchainNameHeaderRow = -1;
         blockchainNameRow = -1;
@@ -238,6 +240,7 @@ public class WalletSettingsActivity extends BaseFragment {
             walletSectionRow = rowCount++;
             deleteRow = rowCount++;
             deleteSectionRow = rowCount++;
+            appVersionRow = rowCount++;
         } else if (currentType == TYPE_SERVER) {
             typeHeaderRow = rowCount++;
             urlTypeRow = rowCount++;
@@ -411,6 +414,8 @@ public class WalletSettingsActivity extends BaseFragment {
                     holder = findViewHolderForAdapterPosition(deleteSectionRow);
                 } else if (blockchainNameSectionRow != -1) {
                     holder = findViewHolderForAdapterPosition(blockchainNameSectionRow);
+                } else if (appVersionRow != -1) {
+                    holder = findViewHolderForAdapterPosition(appVersionRow);
                 } else {
                     holder = null;
                 }
@@ -828,8 +833,15 @@ public class WalletSettingsActivity extends BaseFragment {
                     if (position == deleteSectionRow) {
                         cell.setText(LocaleController.getString("WalletDeleteInfo", R.string.WalletDeleteInfo));
                         resId = R.drawable.greydivider_bottom;
+                    } else if (position == appVersionRow) {
+                        cell.setText(String.format("%s %s(%s)",
+                                LocaleController.getString("AppName", R.string.AppName),
+                                BuildConfig.VERSION_NAME,
+                                BuildConfig.VERSION_CODE));
+                        resId = R.drawable.greydivider_bottom;
                     } else if (position == typeSectionRow) {
                         cell.setText(LocaleController.getString("WalletConfigTypeInfo", R.string.WalletConfigTypeInfo));
+
                         resId = R.drawable.greydivider;
                     } else if (position == blockchainNameSectionRow) {
                         cell.setText(LocaleController.getString("WalletBlockchainNameInfo", R.string.WalletBlockchainNameInfo));
