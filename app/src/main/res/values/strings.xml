@@ -204,12 +204,12 @@
 
     <string name="WalletDebugInfoCopied">Debug info copied to clipboard</string>
     <string name="WalletWhereGrams">Where to get grams?</string>
-    <string name="WalletWhereGramsRuChat">Get in a chat(RU)</string>
-    <string name="WalletWhereGramsEnChat">Get in a cha(EN)</string>
+    <string name="WalletWhereGramsRuChat">Get in a chat (RU)</string>
+    <string name="WalletWhereGramsEnChat">Get in a cha (EN)</string>
     <string name="WalletWhereGramsBot">Get in a bot (doesn\'t always give)</string>
     <string name="WalletFeedback">Feedback</string>
-    <string name="WalletFeedbackRuChat">Write to our chat(RU)</string>
-    <string name="WalletFeedbackEnChat">Write to our chat(EN)</string>
+    <string name="WalletFeedbackRuChat">Write to our chat (RU)</string>
+    <string name="WalletFeedbackEnChat">Write to our chat (EN)</string>
 
     <string name="CreateMyWalletTerms"> </string>
     <!--plural-->

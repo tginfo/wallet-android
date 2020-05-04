@@ -920,7 +920,7 @@ public class WalletSettingsActivity extends BaseFragment {
                         cell.setOnClickListener(null);
                         resId = R.drawable.greydivider_bottom;
                     } else if (position == appVersionRow) {
-                        cell.setText(String.format("%s %s(%s)",
+                        cell.setText(String.format("%s %s (%s)",
                                 LocaleController.getString("AppName", R.string.AppName),
                                 BuildConfig.VERSION_NAME,
                                 BuildConfig.VERSION_CODE));
