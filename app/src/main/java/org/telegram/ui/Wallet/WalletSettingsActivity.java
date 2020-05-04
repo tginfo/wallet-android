@@ -9,6 +9,8 @@ package org.telegram.ui.Wallet;
 
 import android.app.Activity;
 import android.app.KeyguardManager;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -66,6 +68,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.Locale;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -122,6 +125,18 @@ public class WalletSettingsActivity extends BaseFragment {
     private int sendLogsRow;
     private int clearLogsRow;
     private int rowCount;
+
+
+    private int whereGramsSectionRow;
+    private int whereGramsHeaderRow;
+    private int whereGramEnChatRow;
+    private int whereGramRuChatRow;
+    private int whereGramBotRow;
+
+    private int feedbackSectionRow;
+    private int feedbackHeaderRow;
+    private int feedbackEnChatRow;
+    private int feedbackRuChatRow;
 
     private static final int done_button = 1;
 
@@ -224,8 +239,21 @@ public class WalletSettingsActivity extends BaseFragment {
         sendLogsRow = -1;
         clearLogsRow = -1;
 
+        whereGramsHeaderRow = -1;
+        whereGramsSectionRow = -1;
+        whereGramEnChatRow = -1;
+        whereGramRuChatRow = -1;
+        whereGramBotRow = -1;
+
+        feedbackHeaderRow = -1;
+        feedbackSectionRow = -1;
+        feedbackEnChatRow = -1;
+        feedbackRuChatRow = -1;
+
         if (currentType == TYPE_SETTINGS) {
             headerRow = rowCount++;
+
+
             if (BuildVars.DEBUG_VERSION) {
                 clearLogsRow = rowCount++;
                 sendLogsRow = rowCount++;
@@ -234,6 +262,18 @@ public class WalletSettingsActivity extends BaseFragment {
             if (BuildVars.TON_WALLET_STANDALONE) {
                 serverSettingsRow = rowCount++;
             }
+
+            whereGramsSectionRow = rowCount++;
+            whereGramsHeaderRow = rowCount++;
+            whereGramRuChatRow = rowCount++;
+            whereGramEnChatRow = rowCount++;
+            whereGramBotRow = rowCount++;
+
+            feedbackSectionRow = rowCount++;
+            feedbackHeaderRow = rowCount++;
+            feedbackRuChatRow = rowCount++;
+            feedbackEnChatRow = rowCount++;
+
             if (getUserConfig().tonPasscodeType != -1) {
                 changePasscodeRow = rowCount++;
             }
@@ -477,6 +517,26 @@ public class WalletSettingsActivity extends BaseFragment {
                 showDialog(builder.create());
             } else if (position == sendLogsRow) {
                 sendLogs();
+            } else if (position == whereGramEnChatRow) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/tginfochaten"));
+                if (browserIntent.resolveActivity(context.getPackageManager()) != null)
+                    context.startActivity(browserIntent);
+            } else if (position == whereGramRuChatRow) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/infotonchat"));
+                if (browserIntent.resolveActivity(context.getPackageManager()) != null)
+                    context.startActivity(browserIntent);
+            } else if (position == whereGramBotRow) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/test_ton_bot"));
+                if (browserIntent.resolveActivity(context.getPackageManager()) != null)
+                    context.startActivity(browserIntent);
+            } else if (position == feedbackRuChatRow) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/infotonchat"));
+                if (browserIntent.resolveActivity(context.getPackageManager()) != null)
+                    context.startActivity(browserIntent);
+            } else if (position == feedbackEnChatRow) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/tginfochaten"));
+                if (browserIntent.resolveActivity(context.getPackageManager()) != null)
+                    context.startActivity(browserIntent);
             } else if (position == deleteRow) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getParentActivity());
                 builder.setTitle(LocaleController.getString("WalletDeleteTitle", R.string.WalletDeleteTitle));
@@ -776,6 +836,10 @@ public class WalletSettingsActivity extends BaseFragment {
                     HeaderCell cell = (HeaderCell) holder.itemView;
                     if (position == headerRow) {
                         cell.setText(LocaleController.getString("Wallet", R.string.Wallet));
+                    } else if (position == whereGramsHeaderRow) {
+                        cell.setText(LocaleController.getString("WalletWhereGrams", R.string.WalletWhereGrams));
+                    } else if (position == feedbackHeaderRow) {
+                        cell.setText(LocaleController.getString("WalletFeedback", R.string.WalletFeedback));
                     } else if (position == blockchainNameHeaderRow) {
                         cell.setText(LocaleController.getString("WalletBlockchainName", R.string.WalletBlockchainName));
                     } else if (position == typeHeaderRow) {
@@ -793,6 +857,26 @@ public class WalletSettingsActivity extends BaseFragment {
                     TextSettingsCell cell = (TextSettingsCell) holder.itemView;
                     if (position == exportRow) {
                         cell.setText(LocaleController.getString("WalletExport", R.string.WalletExport), changePasscodeRow != -1 || serverSettingsRow != -1);
+                        cell.setTextColor(Theme.getColor(Theme.key_windowBackgroundWhiteBlackText));
+                        cell.setTag(Theme.key_windowBackgroundWhiteBlackText);
+                    } else if (position == whereGramEnChatRow) {
+                        cell.setText(LocaleController.getString("WalletWhereGramsEnChat", R.string.WalletWhereGramsEnChat), whereGramBotRow != -1);
+                        cell.setTextColor(Theme.getColor(Theme.key_windowBackgroundWhiteBlackText));
+                        cell.setTag(Theme.key_windowBackgroundWhiteBlackText);
+                    } else if (position == whereGramRuChatRow) {
+                        cell.setText(LocaleController.getString("WalletWhereGramsRuChat", R.string.WalletWhereGramsRuChat), whereGramBotRow != -1);
+                        cell.setTextColor(Theme.getColor(Theme.key_windowBackgroundWhiteBlackText));
+                        cell.setTag(Theme.key_windowBackgroundWhiteBlackText);
+                    } else if (position == whereGramBotRow) {
+                        cell.setText(LocaleController.getString("WalletWhereGramsBot", R.string.WalletWhereGramsBot), false);
+                        cell.setTextColor(Theme.getColor(Theme.key_windowBackgroundWhiteBlackText));
+                        cell.setTag(Theme.key_windowBackgroundWhiteBlackText);
+                    } else if (position == feedbackEnChatRow) {
+                        cell.setText(LocaleController.getString("WalletFeedbackEnChat", R.string.WalletFeedbackEnChat), false);
+                        cell.setTextColor(Theme.getColor(Theme.key_windowBackgroundWhiteBlackText));
+                        cell.setTag(Theme.key_windowBackgroundWhiteBlackText);
+                    } else if (position == feedbackRuChatRow) {
+                        cell.setText(LocaleController.getString("WalletFeedbackRuChat", R.string.WalletFeedbackRuChat), feedbackEnChatRow != -1);
                         cell.setTextColor(Theme.getColor(Theme.key_windowBackgroundWhiteBlackText));
                         cell.setTag(Theme.key_windowBackgroundWhiteBlackText);
                     } else if (position == changePasscodeRow) {
@@ -819,7 +903,7 @@ public class WalletSettingsActivity extends BaseFragment {
                     break;
                 }
                 case 2: {
-                    if (position == walletSectionRow || position == fieldSectionRow) {
+                    if (position == walletSectionRow || position == fieldSectionRow || position == whereGramsSectionRow || position == feedbackSectionRow) {
                         Drawable drawable = Theme.getThemedDrawable(context, R.drawable.greydivider, Theme.key_windowBackgroundGrayShadow);
                         CombinedDrawable combinedDrawable = new CombinedDrawable(new ColorDrawable(Theme.getColor(Theme.key_windowBackgroundGray)), drawable);
                         combinedDrawable.setFullsize(true);
@@ -832,19 +916,54 @@ public class WalletSettingsActivity extends BaseFragment {
                     int resId = 0;
                     if (position == deleteSectionRow) {
                         cell.setText(LocaleController.getString("WalletDeleteInfo", R.string.WalletDeleteInfo));
+                        cell.resetCustomGravity();
+                        cell.setOnClickListener(null);
                         resId = R.drawable.greydivider_bottom;
                     } else if (position == appVersionRow) {
                         cell.setText(String.format("%s %s(%s)",
                                 LocaleController.getString("AppName", R.string.AppName),
                                 BuildConfig.VERSION_NAME,
                                 BuildConfig.VERSION_CODE));
+                        cell.setCustomGravity(Gravity.CENTER_HORIZONTAL);
+                        cell.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+                                if (clipboardManager != null) {
+                                    Toast.makeText(context, LocaleController.getString("WalletDebugInfoCopied", R.string.WalletDebugInfoCopied), Toast.LENGTH_SHORT).show();
+
+                                    int screenHeight = context.getResources().getDisplayMetrics().heightPixels;
+                                    int screenWidth = context.getResources().getDisplayMetrics().widthPixels;
+                                    String resolution = String.format(Locale.US, "%dx%d", screenHeight, screenWidth);
+
+                                    String debugInfo = String.format(Locale.US, "%s %s(%s)(Android %s; SDK %d; %s; %s %s; %s; %s)",
+                                            LocaleController.getString("AppName", R.string.AppName),
+                                            BuildConfig.VERSION_NAME,
+                                            BuildConfig.VERSION_CODE,
+                                            Build.VERSION.RELEASE,
+                                            Build.VERSION.SDK_INT,
+                                            Build.CPU_ABI,
+                                            Build.MANUFACTURER,
+                                            Build.MODEL,
+                                            Locale.getDefault().getLanguage(),
+                                            resolution);
+
+                                    ClipData clipData = ClipData.newPlainText("GramDebug", debugInfo);
+                                    clipboardManager.setPrimaryClip(clipData);
+                                }
+
+                            }
+                        });
                         resId = R.drawable.greydivider_bottom;
                     } else if (position == typeSectionRow) {
                         cell.setText(LocaleController.getString("WalletConfigTypeInfo", R.string.WalletConfigTypeInfo));
-
+                        cell.resetCustomGravity();
+                        cell.setOnClickListener(null);
                         resId = R.drawable.greydivider;
                     } else if (position == blockchainNameSectionRow) {
                         cell.setText(LocaleController.getString("WalletBlockchainNameInfo", R.string.WalletBlockchainNameInfo));
+                        cell.resetCustomGravity();
+                        cell.setOnClickListener(null);
                         resId = R.drawable.greydivider_bottom;
                     }
                     Drawable drawable = Theme.getThemedDrawable(context, resId, Theme.key_windowBackgroundGrayShadow);
@@ -886,11 +1005,11 @@ public class WalletSettingsActivity extends BaseFragment {
 
         @Override
         public int getItemViewType(int position) {
-            if (position == headerRow || position == blockchainNameHeaderRow || position == typeHeaderRow || position == fieldHeaderRow) {
+            if (position == headerRow || position == blockchainNameHeaderRow || position == typeHeaderRow || position == fieldHeaderRow || position == whereGramsHeaderRow || position == feedbackHeaderRow) {
                 return 0;
-            } else if (position == exportRow || position == changePasscodeRow || position == deleteRow || position == serverSettingsRow || position == sendLogsRow || position == clearLogsRow) {
+            } else if (position == exportRow || position == changePasscodeRow || position == deleteRow || position == serverSettingsRow || position == sendLogsRow || position == clearLogsRow || position == whereGramEnChatRow | position == whereGramRuChatRow || position == whereGramBotRow || position == feedbackEnChatRow || position == feedbackRuChatRow) {
                 return 1;
-            } else if (position == walletSectionRow || position == fieldSectionRow) {
+            } else if (position == walletSectionRow || position == fieldSectionRow || position == whereGramsSectionRow || position == feedbackSectionRow) {
                 return 2;
             } else if (position == jsonTypeRow || position == urlTypeRow || position == blockchainMainRow || position == blockchainTestRow) {
                 return 4;

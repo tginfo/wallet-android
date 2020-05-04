@@ -16,6 +16,8 @@ import android.view.Gravity;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+
 import org.telegram.messenger.AndroidUtilities;
 import org.telegram.messenger.LocaleController;
 import org.telegram.ui.Components.LayoutHelper;
@@ -39,11 +41,12 @@ public class TextInfoPrivacyCell extends FrameLayout {
 
         textView = new TextView(context);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
-        textView.setGravity(LocaleController.isRTL ? Gravity.RIGHT : Gravity.LEFT);
+        textView.setGravity(LocaleController.isRTL ? Gravity.END : Gravity.START);
         textView.setPadding(0, AndroidUtilities.dp(10), 0, AndroidUtilities.dp(17));
         textView.setMovementMethod(LinkMovementMethod.getInstance());
         textView.setTextColor(Theme.getColor(Theme.key_windowBackgroundWhiteGrayText4));
         textView.setLinkTextColor(Theme.getColor(linkTextColorKey));
+
         addView(textView, LayoutHelper.createFrame(LayoutHelper.MATCH_PARENT, LayoutHelper.WRAP_CONTENT, (LocaleController.isRTL ? Gravity.RIGHT : Gravity.LEFT) | Gravity.TOP, padding, 0, padding, 0));
     }
 
@@ -58,6 +61,13 @@ public class TextInfoPrivacyCell extends FrameLayout {
         } else {
             super.onMeasure(MeasureSpec.makeMeasureSpec(MeasureSpec.getSize(widthMeasureSpec), MeasureSpec.EXACTLY), MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
         }
+    }
+
+    @Override
+    public void setOnClickListener(@Nullable OnClickListener l) {
+        textView.setClickable(l != null);
+        textView.setFocusable(l != null);
+        textView.setOnClickListener(l);
     }
 
     public void setBottomPadding(int value) {
@@ -101,4 +111,14 @@ public class TextInfoPrivacyCell extends FrameLayout {
             textView.setAlpha(value ? 1.0f : 0.5f);
         }
     }
+
+    public void setCustomGravity(int gravity) {
+        textView.setGravity(gravity);
+    }
+
+
+    public void resetCustomGravity() {
+        textView.setGravity(LocaleController.isRTL ? Gravity.END : Gravity.START);
+    }
+
 }
