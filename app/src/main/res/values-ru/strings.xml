@@ -201,6 +201,17 @@
     <string name="WalletEmptyTransaction">Пустая транзакция</string>
     <string name="WalletInitTransaction">Инициализация кошелька</string>
 	<string name="WalletTosUrl"> </string>
+
+    <string name="WalletDebugInfoCopied">Отладочная информация скопирована</string>
+    <string name="WalletWhereGrams">Где взять грамы?</string>
+    <string name="WalletWhereGramsEnChat">Попросить в чате(Английский)</string>
+    <string name="WalletWhereGramsRuChat">Попросить в чате(Русский)</string>
+    <string name="WalletWhereGramsBot">Попросить у бота(дает не всегда)</string>
+    <string name="WalletFeedback">Обратная связь</string>
+    <string name="WalletFeedbackEnChat">Написать в наш чат(Английский)</string>
+    <string name="WalletFeedbackRuChat">Написать в наш чат(Русский)</string>
+
+
     <string name="CreateMyWalletTerms"> </string>
     <!--plural-->
     <string name="Digits_zero">%1$d цифр</string>
