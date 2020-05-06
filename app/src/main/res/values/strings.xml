@@ -202,14 +202,15 @@
     <string name="WalletInitTransaction">Wallet initialization</string>
     <string name="WalletTosUrl"> </string>
 
+    <string name="WalletHelp">Help</string>
     <string name="WalletDebugInfoCopied">Debug info copied to clipboard</string>
-    <string name="WalletWhereGrams">Where to get grams?</string>
-    <string name="WalletWhereGramsRuChat">Get in a chat (RU)</string>
-    <string name="WalletWhereGramsEnChat">Get in a cha (EN)</string>
-    <string name="WalletWhereGramsBot">Get in a bot (doesn\'t always give)</string>
-    <string name="WalletFeedback">Feedback</string>
-    <string name="WalletFeedbackRuChat">Write to our chat (RU)</string>
-    <string name="WalletFeedbackEnChat">Write to our chat (EN)</string>
+    <string name="WalletWhatIsGram">What is Gram?</string>
+    <string name="WalletWhereIsGram">Where to get Gram?</string>
+    <string name="WalletOtherIsGram">Answers to other questions</string>
+    <string name="WalletWhatIsGramFull">Gram is a TON network token. Designed to pay for goods and services.\n\nThere are different networks: testnet and mainnet\n</string>
+    <string name="WalletDifference">What is the difference?</string>
+    <string name="WalletDifferenceFull">testnet (test network) is intended only for testing the network, checking the operation of transfers, tokens are worth nothing.\n\nmainnet (main network) is intended for use in real life, tokens cost real money.\n</string>
+
 
     <string name="CreateMyWalletTerms"> </string>
     <!--plural-->
