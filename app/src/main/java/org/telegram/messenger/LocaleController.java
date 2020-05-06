@@ -14,8 +14,8 @@ import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.text.format.DateFormat;
 
-import org.tginfo.telegram.messenger.R;
 import org.telegram.messenger.time.FastDateFormat;
+import org.tginfo.telegram.messenger.R;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -63,7 +63,7 @@ public class LocaleController {
         public void onReceive(Context context, Intent intent) {
             ApplicationLoader.applicationHandler.post(() -> {
                 if (!formatterDayMonth.getTimeZone().equals(TimeZone.getDefault())) {
-                    LocaleController.getInstance().recreateFormatters();
+                       LocaleController.getInstance().recreateFormatters();
                 }
             });
         }
@@ -235,7 +235,7 @@ public class LocaleController {
 
     public void applyLanguage() {
         try {
-            String lang = systemDefaultLocale.getDisplayName();
+            String lang = systemDefaultLocale.getLanguage();
             currentLocale = new Locale(lang);
             currentPluralRules = allRules.get(lang);
             changingConfiguration = true;
