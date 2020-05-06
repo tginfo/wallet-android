@@ -70,6 +70,7 @@ public class LocaleController {
     }
 
     private static volatile LocaleController Instance = null;
+
     public static LocaleController getInstance() {
         LocaleController localInstance = Instance;
         if (localInstance == null) {
@@ -234,8 +235,9 @@ public class LocaleController {
 
     public void applyLanguage() {
         try {
-            currentLocale = new Locale("ru");
-            currentPluralRules = allRules.get("ru");
+            String lang = systemDefaultLocale.getDisplayName();
+            currentLocale = new Locale(lang);
+            currentPluralRules = allRules.get(lang);
             changingConfiguration = true;
             Locale.setDefault(currentLocale);
             android.content.res.Configuration config = new android.content.res.Configuration();
