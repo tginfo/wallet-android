@@ -18,6 +18,8 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import androidx.annotation.ColorInt;
+
 import org.telegram.messenger.AndroidUtilities;
 import org.telegram.messenger.LocaleController;
 import org.telegram.ui.ActionBar.SimpleTextView;
@@ -90,6 +92,14 @@ public class HeaderCell extends FrameLayout {
             return;
         }
         textView2.setText(text);
+    }
+
+    public void setTextColor(@ColorInt int color) {
+        textView.setTextColor(color);
+    }
+
+    public void recetTextColor(){
+        textView.setTextColor(Theme.getColor(Theme.key_windowBackgroundWhiteBlueHeader));
     }
 
     public SimpleTextView getTextView2() {

@@ -202,15 +202,14 @@
     <string name="WalletInitTransaction">Инициализация кошелька</string>
 	<string name="WalletTosUrl"> </string>
 
+    <string name="WalletHelp">Помощь</string>
     <string name="WalletDebugInfoCopied">Отладочная информация скопирована</string>
-    <string name="WalletWhereGrams">Где взять грамы?</string>
-    <string name="WalletWhereGramsEnChat">Попросить в чате (английский)</string>
-    <string name="WalletWhereGramsRuChat">Попросить в чате (русский)</string>
-    <string name="WalletWhereGramsBot">Попросить у бота (дает не всегда)</string>
-    <string name="WalletFeedback">Обратная связь</string>
-    <string name="WalletFeedbackEnChat">Написать в наш чат (английский)</string>
-    <string name="WalletFeedbackRuChat">Написать в наш чат (русский)</string>
-
+    <string name="WalletWhatIsGram">Что такое Gram?</string>
+    <string name="WalletWhereIsGram">Где взять Gram?</string>
+    <string name="WalletOtherIsGram">Ответы на другие вопросы</string>
+    <string name="WalletWhatIsGramFull">Gram - это токен сети TON. Предназначен для оплаты товаров и услуг.\n\nСуществуют разные сети: testnet и mainnet\n</string>
+    <string name="WalletDifference">Какая разница?</string>
+    <string name="WalletDifferenceFull">testnet (тестовая сеть) предназначена только для тестирования сети, проверки работы переводов, токены ничего не стоят.\n\nmainnet (основная сеть) предназначена для использования в реальной жизни, токены стоят настоящих денег.\n</string>
 
     <string name="CreateMyWalletTerms"> </string>
     <!--plural-->
