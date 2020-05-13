@@ -47,11 +47,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.widget.NestedScrollView;
+
 import org.telegram.messenger.AndroidUtilities;
 import org.telegram.messenger.ApplicationLoader;
 import org.telegram.messenger.FileLog;
 import org.telegram.messenger.LocaleController;
-import org.tginfo.telegram.messenger.R;
 import org.telegram.messenger.TonController;
 import org.telegram.messenger.Utilities;
 import org.telegram.ui.ActionBar.ActionBar;
@@ -67,12 +68,13 @@ import org.telegram.ui.Components.BiometricPromtHelper;
 import org.telegram.ui.Components.EditTextBoldCursor;
 import org.telegram.ui.Components.LayoutHelper;
 import org.telegram.ui.Components.TypefaceSpan;
+import org.tginfo.telegram.messenger.R;
 
 import java.net.URLEncoder;
 import java.util.Locale;
 
-import androidx.core.widget.NestedScrollView;
 import drinkless.org.ton.TonApi;
+import ru.olaf.custom.Wallet.WalletInfoActivity;
 
 public class WalletActionSheet extends BottomSheet {
 
@@ -330,9 +332,25 @@ public class WalletActionSheet extends BottomSheet {
                     delegate.openQrReader();
                 });
                 editText.setPadding(LocaleController.isRTL ? AndroidUtilities.dp(60) : 0, AndroidUtilities.dp(13), LocaleController.isRTL ? 0 : AndroidUtilities.dp(60), AndroidUtilities.dp(8));
+
             } else {
-                editText.setFocusable(false);
-                editText.setEnabled(false);
+
+                if (currentTransaction != null && !currentTransaction.isEmpty) {
+                    editText.setFocusable(false);
+                    editText.setEnabled(true);
+                    editText.setCursorVisible(false);
+                    editText.setKeyListener(null);
+                    editText.setBackgroundDrawable(Theme.createSelectorDrawable(Theme.getColor(Theme.key_actionBarWhiteSelector), 7));
+
+                    editText.setOnClickListener(view -> {
+                        parentFragment.presentFragment(new WalletInfoActivity(editText.getText().toString(), parentFragment, WalletActionSheet.this));
+                        dismiss();
+                    });
+                } else {
+                    editText.setFocusable(false);
+                    editText.setEnabled(false);
+                }
+
                 editText.setTypeface(Typeface.MONOSPACE);
                 editText.setPadding(0, AndroidUtilities.dp(13), 0, AndroidUtilities.dp(10));
 
@@ -341,7 +359,7 @@ public class WalletActionSheet extends BottomSheet {
                 copyButton.setScaleType(ImageView.ScaleType.CENTER);
                 copyButton.setColorFilter(new PorterDuffColorFilter(Theme.getColor(Theme.key_windowBackgroundWhiteBlueHeader), PorterDuff.Mode.MULTIPLY));
                 copyButton.setBackgroundDrawable(Theme.createSelectorDrawable(Theme.getColor(Theme.key_actionBarWhiteSelector), 6));
-                addView(copyButton, LayoutHelper.createFrame(48, 48, Gravity.TOP | (LocaleController.isRTL ? Gravity.LEFT : Gravity.RIGHT), 6, 10, 6, 0));
+                addView(copyButton, LayoutHelper.createFrame(48, 48, Gravity.TOP | (LocaleController.isRTL ? Gravity.LEFT : Gravity.RIGHT), 6, 10, 16, 0));
                 copyButton.setOnClickListener(v -> {
                     AndroidUtilities.addToClipboard("ton://transfer/" + recipientString.replace("\n", ""));
                     Toast.makeText(v.getContext(), LocaleController.getString("WalletTransactionAddressCopied", R.string.WalletTransactionAddressCopied), Toast.LENGTH_SHORT).show();
