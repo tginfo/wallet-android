@@ -210,7 +210,9 @@
     <string name="WalletWhatIsGramFull">Gram is a TON network token. Designed to pay for goods and services.\n\nThere are different networks: testnet and mainnet\n</string>
     <string name="WalletDifference">What is the difference?</string>
     <string name="WalletDifferenceFull">testnet (test network) is intended only for testing the network, checking the operation of transfers, tokens are worth nothing.\n\nmainnet (main network) is intended for use in real life, tokens cost real money.\n</string>
-
+    <string name="WalletTransactionsInfo">Transactions history</string>
+    <string name="WalletTransactionsInfoWallet">Wallet address</string>
+    <string name="WalletTransactionsInfoError">Error while loading, try later or contact with developers</string>
 
     <string name="CreateMyWalletTerms"> </string>
     <!--plural-->
