@@ -19,7 +19,7 @@ dependencies {
 
 
     implementation 'com.google.code.gson:gson:2.8.6'
-    implementation("com.google.guava:guava:28.2-android")
+
     implementation 'com.squareup.retrofit2:retrofit:2.8.1'
     implementation 'com.squareup.retrofit2:converter-gson:2.8.1'
     //noinspection GradleDependency
@@ -163,7 +163,7 @@ android {
         }
     }
 
-    defaultConfig.versionCode = 1050
+    defaultConfig.versionCode = 1052
 
     applicationVariants.all { variant ->
         variant.outputs.all { output ->
@@ -197,7 +197,7 @@ android {
     defaultConfig {
         minSdkVersion 18
         targetSdkVersion 28
-        versionName "1.2.4 Beta"
+        versionName "1.2.6"
 
         vectorDrawables.generatedDensities = ['mdpi', 'hdpi', 'xhdpi', 'xxhdpi']
 

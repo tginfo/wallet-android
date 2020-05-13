@@ -207,10 +207,9 @@
     <string name="WalletWhatIsGram">Что такое Gram?</string>
     <string name="WalletWhereIsGram">Где взять Gram?</string>
     <string name="WalletOtherIsGram">Ответы на другие вопросы</string>
-    <string name="WalletWhatIsGramFull">Gram - это токен сети TON. Предназначен для оплаты товаров и услуг.\n\nСуществуют разные сети: testnet и mainnet\n</string>
-    <string name="WalletDifference">Какая разница?</string>
-    <string name="WalletDifferenceFull">testnet (тестовая сеть) предназначена только для тестирования сети, проверки работы переводов, токены ничего не стоят.\n\nmainnet (основная сеть) предназначена для использования в реальной жизни, токены стоят настоящих денег.\n</string>
-    <string name="WalletTransactionsInfo">История переводов</string>
+    <string name="WalletWhatIsGramFull">Gram – это токен блокчейна TON.\n\nСуществуют несколько сетей: сейчас доступен только testnet2, в будущем будет запущена mainnet (основная сеть).\n</string>
+    <string name="WalletDifference">Чем отличаются сети</string>
+    <string name="WalletDifferenceFull">testnet2 (тестовая сеть) предназначена только для тестирования сети, проверки работы переводов, токены не имеют ценности и не продаются за реальные деньги.\n\nmainnet (основная сеть) - сеть, которая будет запущена после тестирования. Её токены можно будет покупать и продавать на биржах.\n</string>    <string name="WalletTransactionsInfo">История переводов</string>
     <string name="WalletTransactionsInfoWallet">Адрес кошелька</string>
     <string name="WalletTransactionsInfoError">Произошла ошибка, попробуйте позже или свяжитесь с разработчиками</string>
 
