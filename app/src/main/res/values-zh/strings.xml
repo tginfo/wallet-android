@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="WalletDifferenceFull">testnet2 (test network) is intended only for testing the network, checking the operation of transfers, tokens have no value and are not sold for real money.\n\nmainnet - The network that will be launched after testing. Its tokens can be bought and sold on exchanges.\n\nTONCommunity.org 的测试网络拥有更适合的网络配置和用户友好的界面，使更多用户轻松加入区块链网络成为可能。\n</string>
+</resources>

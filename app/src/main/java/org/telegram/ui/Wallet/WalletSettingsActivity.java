@@ -103,6 +103,11 @@ public class WalletSettingsActivity extends BaseFragment {
 
     private int currentType;
 
+
+    private int blockchainHeaderRow;
+    private int blockchainSectionRow;
+
+
     private int typeHeaderRow;
     private int urlTypeRow;
     private int jsonTypeRow;
@@ -115,6 +120,8 @@ public class WalletSettingsActivity extends BaseFragment {
     private int blockchainNameRow;
     private int blockchainMainRow;
     private int blockchainTestRow;
+    private int blockchainNewTonRow;
+    private int blockchainTonCommunityRow;
     private int blockchainNameSectionRow;
 
     private int headerRow;
@@ -212,11 +219,11 @@ public class WalletSettingsActivity extends BaseFragment {
 
         if (currentType == TYPE_SERVER) {
             UserConfig userConfig = getUserConfig();
-            blockchainName = new String[]{userConfig.getWalletBlockchainName(UserConfig.NETWORK_TYPE_TEST), userConfig.getWalletBlockchainName(UserConfig.NETWORK_TYPE_MAIN)};
-            blockchainJson = new String[]{userConfig.getWalletConfig(UserConfig.NETWORK_TYPE_TEST), userConfig.getWalletConfig(UserConfig.NETWORK_TYPE_MAIN)};
-            blockchainConfigFromUrl = new String[]{userConfig.getWalletConfigFromUrl(UserConfig.NETWORK_TYPE_TEST), userConfig.getWalletConfigFromUrl(UserConfig.NETWORK_TYPE_MAIN)};
-            blockchainUrl = new String[]{userConfig.getWalletConfigUrl(UserConfig.NETWORK_TYPE_TEST), userConfig.getWalletConfigUrl(UserConfig.NETWORK_TYPE_MAIN)};
-            configType = new int[]{userConfig.getWalletConfigType(UserConfig.NETWORK_TYPE_TEST), userConfig.getWalletConfigType(UserConfig.NETWORK_TYPE_MAIN)};
+            blockchainName = new String[]{userConfig.getWalletBlockchainName(UserConfig.NETWORK_TYPE_TEST), userConfig.getWalletBlockchainName(UserConfig.NETWORK_TYPE_MAIN), userConfig.getWalletBlockchainName(UserConfig.NETWORK_TYPE_NEWTON), userConfig.getWalletBlockchainName(UserConfig.NETWORK_TYPE_TON_COMMUNITY)};
+            blockchainJson = new String[]{userConfig.getWalletConfig(UserConfig.NETWORK_TYPE_TEST), userConfig.getWalletConfig(UserConfig.NETWORK_TYPE_MAIN), userConfig.getWalletConfig(UserConfig.NETWORK_TYPE_NEWTON), userConfig.getWalletConfig(UserConfig.NETWORK_TYPE_TON_COMMUNITY)};
+            blockchainConfigFromUrl = new String[]{userConfig.getWalletConfigFromUrl(UserConfig.NETWORK_TYPE_TEST), userConfig.getWalletConfigFromUrl(UserConfig.NETWORK_TYPE_MAIN), userConfig.getWalletConfigFromUrl(UserConfig.NETWORK_TYPE_NEWTON), userConfig.getWalletConfigFromUrl(UserConfig.NETWORK_TYPE_TON_COMMUNITY)};
+            blockchainUrl = new String[]{userConfig.getWalletConfigUrl(UserConfig.NETWORK_TYPE_TEST), userConfig.getWalletConfigUrl(UserConfig.NETWORK_TYPE_MAIN), userConfig.getWalletConfigUrl(UserConfig.NETWORK_TYPE_NEWTON), userConfig.getWalletConfigUrl(UserConfig.NETWORK_TYPE_TON_COMMUNITY)};
+            configType = new int[]{userConfig.getWalletConfigType(UserConfig.NETWORK_TYPE_TEST), userConfig.getWalletConfigType(UserConfig.NETWORK_TYPE_MAIN), userConfig.getWalletConfigType(UserConfig.NETWORK_TYPE_NEWTON), userConfig.getWalletConfigType(UserConfig.NETWORK_TYPE_TON_COMMUNITY)};
             networkType = userConfig.getCurrentNetworkType();
         }
         updateRows();
@@ -244,6 +251,8 @@ public class WalletSettingsActivity extends BaseFragment {
         blockchainNameRow = -1;
         blockchainMainRow = -1;
         blockchainTestRow = -1;
+        blockchainNewTonRow = -1;
+        blockchainTonCommunityRow = -1;
         blockchainNameSectionRow = -1;
         sendLogsRow = -1;
         clearLogsRow = -1;
@@ -263,6 +272,9 @@ public class WalletSettingsActivity extends BaseFragment {
         helpDifferenceTextRow = -1;
         helpOtherFullSectionRow = -1;
         helpEmptyRow = -1;
+
+        blockchainHeaderRow = -1;
+        blockchainSectionRow = -1;
 
         switch (currentType) {
             case TYPE_SETTINGS:
@@ -294,6 +306,13 @@ public class WalletSettingsActivity extends BaseFragment {
                 break;
 
             case TYPE_SERVER:
+                blockchainHeaderRow = rowCount++;
+                //blockchainMainRow = rowCount++;
+                blockchainTestRow = rowCount++;
+                blockchainNewTonRow = rowCount++;
+                blockchainTonCommunityRow = rowCount++;
+                blockchainSectionRow = rowCount++;
+
                 typeHeaderRow = rowCount++;
                 urlTypeRow = rowCount++;
                 jsonTypeRow = rowCount++;
@@ -301,12 +320,9 @@ public class WalletSettingsActivity extends BaseFragment {
                 fieldHeaderRow = rowCount++;
                 fieldRow = rowCount++;
                 fieldSectionRow = rowCount++;
+
                 blockchainNameHeaderRow = rowCount++;
-                //blockchainMainRow = rowCount++;
-                //blockchainTestRow = rowCount++;
-                if (networkType == UserConfig.NETWORK_TYPE_TEST) {
-                    blockchainNameRow = rowCount++;
-                }
+                blockchainNameRow = rowCount++;
                 blockchainNameSectionRow = rowCount++;
                 break;
 
@@ -392,7 +408,17 @@ public class WalletSettingsActivity extends BaseFragment {
                 if (networkType != userConfig.getCurrentNetworkType()) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(getParentActivity());
                     builder.setTitle(LocaleController.getString("WalletSendWarningTitle", R.string.WalletSendWarningTitle));
-                    builder.setMessage(networkType == UserConfig.NETWORK_TYPE_TEST ? LocaleController.getString("WalletTestNetworkSwitch", R.string.WalletTestNetworkSwitch) : LocaleController.getString("WalletMainNetworkSwitch", R.string.WalletMainNetworkSwitch));
+
+                    if (networkType == UserConfig.NETWORK_TYPE_TEST)
+                        builder.setMessage(LocaleController.getString("WalletTestNetworkSwitch", R.string.WalletTestNetworkSwitch));
+                    else if (networkType == UserConfig.NETWORK_TYPE_MAIN)
+                        builder.setMessage(LocaleController.getString("WalletMainNetworkSwitch", R.string.WalletMainNetworkSwitch));
+                    else if (networkType == UserConfig.NETWORK_TYPE_TON_COMMUNITY)
+                        builder.setMessage(LocaleController.getString("WalletTonCommunityNetworkSwitch", R.string.WalletTonCommunityNetworkSwitch));
+                    if (networkType == UserConfig.NETWORK_TYPE_NEWTON)
+                        builder.setMessage(LocaleController.getString("WalletNewTonNetworkSwitch", R.string.WalletNewTonNetworkSwitch));
+
+
                     builder.setNegativeButton(LocaleController.getString("Cancel", R.string.Cancel), null);
                     builder.setPositiveButton(LocaleController.getString("WalletContinue", R.string.WalletContinue), (dialog, which) -> saveConfig(false, true));
                     AlertDialog dialog = builder.create();
@@ -586,19 +612,24 @@ public class WalletSettingsActivity extends BaseFragment {
             } else if (position == urlTypeRow || position == jsonTypeRow) {
                 configType[networkType] = position == urlTypeRow ? TonController.CONFIG_TYPE_URL : TonController.CONFIG_TYPE_JSON;
                 adapter.notifyItemChanged(fieldRow);
-            } else if (position == blockchainMainRow || position == blockchainTestRow) {
+            } else if (position == blockchainMainRow || position == blockchainTestRow || position == blockchainNewTonRow || position == blockchainTonCommunityRow) {
                 int currentType = networkType;
-                networkType = position == blockchainMainRow ? UserConfig.NETWORK_TYPE_MAIN : UserConfig.NETWORK_TYPE_TEST;
+
+
+                if (position == blockchainMainRow)
+                    networkType = UserConfig.NETWORK_TYPE_MAIN;
+                else if (position == blockchainTestRow)
+                    networkType = UserConfig.NETWORK_TYPE_TEST;
+                else if (position == blockchainNewTonRow)
+                    networkType = UserConfig.NETWORK_TYPE_NEWTON;
+                else networkType = UserConfig.NETWORK_TYPE_TON_COMMUNITY;
+
                 if (currentType != networkType) {
-                    int prevBlockchainNameRow = blockchainNameRow;
                     updateRows();
                     adapter.notifyItemChanged(fieldRow);
-                    if (networkType == UserConfig.NETWORK_TYPE_TEST) {
-                        adapter.notifyItemInserted(blockchainNameRow);
-                    } else {
-                        adapter.notifyItemRemoved(prevBlockchainNameRow);
-                    }
+                    adapter.notifyItemChanged(blockchainNameRow);
                 }
+
             } else if (position == serverSettingsRow) {
                 presentFragment(new WalletSettingsActivity(TYPE_SERVER, WalletSettingsActivity.this));
             } else if (position == helpWhatRow) {
@@ -653,7 +684,10 @@ public class WalletSettingsActivity extends BaseFragment {
                                 cell.setTypeChecked(networkType == UserConfig.NETWORK_TYPE_MAIN);
                             } else if (position == blockchainTestRow) {
                                 cell.setTypeChecked(networkType == UserConfig.NETWORK_TYPE_TEST);
-                                cell.setNeedDivider(networkType == UserConfig.NETWORK_TYPE_TEST);
+                            } else if (position == blockchainNewTonRow) {
+                                cell.setTypeChecked(networkType == UserConfig.NETWORK_TYPE_NEWTON);
+                            } else if (position == blockchainTonCommunityRow) {
+                                cell.setTypeChecked(networkType == UserConfig.NETWORK_TYPE_TON_COMMUNITY);
                             }
                         }
                     }
@@ -892,35 +926,38 @@ public class WalletSettingsActivity extends BaseFragment {
                     HeaderCell cell = (HeaderCell) holder.itemView;
                     if (position == headerRow) {
                         cell.setText(LocaleController.getString("Wallet", R.string.Wallet));
-                        cell.recetTextColor();
+                        cell.resetTextColor();
                     } else if (position == helpHeaderRow) {
                         cell.setText(LocaleController.getString("WalletHelp", R.string.WalletHelp));
-                        cell.recetTextColor();
+                        cell.resetTextColor();
                     } else if (position == helpWhatFullHeaderRow) {
                         cell.setText(LocaleController.getString("WalletWhatIsGram", R.string.WalletWhatIsGram));
-                        cell.recetTextColor();
+                        cell.resetTextColor();
                     } else if (position == helpWhatFullTextRow) {
                         cell.setText(LocaleController.getString("WalletWhatIsGramFull", R.string.WalletWhatIsGramFull));
                         cell.setTextColor(Theme.getColor(Theme.key_windowBackgroundWhiteBlackText));
                     } else if (position == helpDifferenceHeaderRow) {
                         cell.setText(LocaleController.getString("WalletDifference", R.string.WalletDifference));
-                        cell.recetTextColor();
+                        cell.resetTextColor();
                     } else if (position == helpDifferenceTextRow) {
                         cell.setText(LocaleController.getString("WalletDifferenceFull", R.string.WalletDifferenceFull));
                         cell.setTextColor(Theme.getColor(Theme.key_windowBackgroundWhiteBlackText));
                     } else if (position == blockchainNameHeaderRow) {
                         cell.setText(LocaleController.getString("WalletBlockchainName", R.string.WalletBlockchainName));
-                        cell.recetTextColor();
+                        cell.resetTextColor();
                     } else if (position == typeHeaderRow) {
                         cell.setText(LocaleController.getString("WalletConfigType", R.string.WalletConfigType));
-                        cell.recetTextColor();
+                        cell.resetTextColor();
+                    } else if (position == blockchainHeaderRow) {
+                        cell.setText(LocaleController.getString("WalletNetworkType", R.string.WalletNetworkType));
+                        cell.resetTextColor();
                     } else if (position == fieldHeaderRow) {
                         if (configType[networkType] == TonController.CONFIG_TYPE_URL) {
                             cell.setText(LocaleController.getString("WalletConfigTypeUrlHeader", R.string.WalletConfigTypeUrlHeader));
                         } else {
                             cell.setText(LocaleController.getString("WalletConfigTypeJsonHeader", R.string.WalletConfigTypeJsonHeader));
                         }
-                        cell.recetTextColor();
+                        cell.resetTextColor();
                     }
                     break;
                 }
@@ -1019,7 +1056,7 @@ public class WalletSettingsActivity extends BaseFragment {
                             }
                         });
                         resId = R.drawable.greydivider_bottom;
-                    } else if (position == helpEmptyRow) {
+                    } else if (position == helpEmptyRow || position == blockchainSectionRow) {
                         cell.setText(null);
                         cell.resetCustomGravity();
                         cell.setOnClickListener(null);
@@ -1035,6 +1072,7 @@ public class WalletSettingsActivity extends BaseFragment {
                         cell.setOnClickListener(null);
                         resId = R.drawable.greydivider_bottom;
                     }
+
                     Drawable drawable = Theme.getThemedDrawable(context, resId, Theme.key_windowBackgroundGrayShadow);
                     CombinedDrawable combinedDrawable = new CombinedDrawable(new ColorDrawable(Theme.getColor(Theme.key_windowBackgroundGray)), drawable);
                     combinedDrawable.setFullsize(true);
@@ -1051,6 +1089,10 @@ public class WalletSettingsActivity extends BaseFragment {
                         cell.setValue(LocaleController.getString("WalletMainNetwork", R.string.WalletMainNetwork), networkType == UserConfig.NETWORK_TYPE_MAIN, true);
                     } else if (position == blockchainTestRow) {
                         cell.setValue(LocaleController.getString("WalletTestNetwork", R.string.WalletTestNetwork), networkType == UserConfig.NETWORK_TYPE_TEST, networkType == UserConfig.NETWORK_TYPE_TEST);
+                    } else if (position == blockchainNewTonRow) {
+                        cell.setValue(LocaleController.getString("WalletNewTonNetwork", R.string.WalletNewTonNetwork), networkType == UserConfig.NETWORK_TYPE_NEWTON, true);
+                    }else if (position == blockchainTonCommunityRow) {
+                        cell.setValue(LocaleController.getString("WalletNewTonNetwork", R.string.WalletTONCommunityNetwork), networkType == UserConfig.NETWORK_TYPE_TON_COMMUNITY, true);
                     }
                     break;
                 }
@@ -1074,13 +1116,13 @@ public class WalletSettingsActivity extends BaseFragment {
 
         @Override
         public int getItemViewType(int position) {
-            if (position == headerRow || position == blockchainNameHeaderRow || position == typeHeaderRow || position == fieldHeaderRow || position == helpHeaderRow || position == helpWhatFullHeaderRow || position == helpWhatFullTextRow || position == helpDifferenceHeaderRow || position == helpDifferenceTextRow) {
+            if (position == headerRow || position == blockchainNameHeaderRow || position == typeHeaderRow || position == fieldHeaderRow || position == helpHeaderRow || position == helpWhatFullHeaderRow || position == helpWhatFullTextRow || position == helpDifferenceHeaderRow || position == helpDifferenceTextRow || position == blockchainHeaderRow) {
                 return 0;
             } else if (position == exportRow || position == changePasscodeRow || position == deleteRow || position == serverSettingsRow || position == sendLogsRow || position == clearLogsRow || position == helpWhatRow || position == helpWhereRow || position == helpOtherRow) {
                 return 1;
             } else if (position == walletSectionRow || position == fieldSectionRow || position == helpSectionRow || position == helpDifferenceSectionRow || position == helpOtherFullSectionRow) {
                 return 2;
-            } else if (position == jsonTypeRow || position == urlTypeRow || position == blockchainMainRow || position == blockchainTestRow) {
+            } else if (position == jsonTypeRow || position == urlTypeRow || position == blockchainMainRow || position == blockchainTestRow || position == blockchainNewTonRow || position == blockchainTonCommunityRow) {
                 return 4;
             } else if (position == fieldRow || position == blockchainNameRow) {
                 return 5;
@@ -1102,6 +1144,10 @@ public class WalletSettingsActivity extends BaseFragment {
                     cell.setTypeChecked(networkType == UserConfig.NETWORK_TYPE_MAIN);
                 } else if (position == blockchainTestRow) {
                     cell.setTypeChecked(networkType == UserConfig.NETWORK_TYPE_TEST);
+                } else if (position == blockchainNewTonRow) {
+                    cell.setTypeChecked(networkType == UserConfig.NETWORK_TYPE_NEWTON);
+                }else if (position == blockchainTonCommunityRow) {
+                    cell.setTypeChecked(networkType == UserConfig.NETWORK_TYPE_TON_COMMUNITY);
                 }
             }
         }

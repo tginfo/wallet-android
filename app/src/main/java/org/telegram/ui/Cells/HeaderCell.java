@@ -98,7 +98,7 @@ public class HeaderCell extends FrameLayout {
         textView.setTextColor(color);
     }
 
-    public void recetTextColor(){
+    public void resetTextColor(){
         textView.setTextColor(Theme.getColor(Theme.key_windowBackgroundWhiteBlueHeader));
     }
 

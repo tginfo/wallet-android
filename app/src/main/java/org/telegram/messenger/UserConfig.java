@@ -31,16 +31,19 @@ public class UserConfig extends BaseController {
     public boolean tonCreationFinished;
     public int tonWalletVersion;
 
-    private String[] walletConfig = new String[2];
-    private String[] walletBlockchainName = new String[2];
-    private String[] walletConfigUrl = new String[2];
-    private String[] walletConfigFromUrl = new String[2];
-    private int[] walletConfigType = new int[2];
+    private String[] walletConfig = new String[4];
+    private String[] walletBlockchainName = new String[4];
+    private String[] walletConfigUrl = new String[4];
+    private String[] walletConfigFromUrl = new String[4];
+    private int[] walletConfigType = new int[4];
 
     private int currentNetworkType;
 
     public static int NETWORK_TYPE_TEST = 0;
     public static int NETWORK_TYPE_MAIN = 1;
+    public static int NETWORK_TYPE_NEWTON = 2;
+    public static int NETWORK_TYPE_TON_COMMUNITY = 3;
+
 
     private static volatile UserConfig[] Instance = new UserConfig[UserConfig.MAX_ACCOUNT_COUNT];
     public static UserConfig getInstance(int num) {
@@ -95,6 +98,21 @@ public class UserConfig extends BaseController {
                 editor.putString("walletBlockchainNameMain", walletBlockchainName[NETWORK_TYPE_MAIN]);
                 editor.putString("walletConfigFromUrlMain", walletConfigFromUrl[NETWORK_TYPE_MAIN]);
 
+
+                editor.putString("walletConfigNewton", walletConfig[NETWORK_TYPE_NEWTON]);
+                editor.putString("walletConfigUrlNewton", walletConfigUrl[NETWORK_TYPE_NEWTON]);
+                editor.putInt("walletConfigTypeNewton", walletConfigType[NETWORK_TYPE_NEWTON]);
+                editor.putString("walletBlockchainNameNewton", walletBlockchainName[NETWORK_TYPE_NEWTON]);
+                editor.putString("walletConfigFromUrlNewton", walletConfigFromUrl[NETWORK_TYPE_NEWTON]);
+
+
+                editor.putString("walletConfigTonCommunity", walletConfig[NETWORK_TYPE_TON_COMMUNITY]);
+                editor.putString("walletConfigUrlTonCommunity", walletConfigUrl[NETWORK_TYPE_TON_COMMUNITY]);
+                editor.putInt("walletConfigTypeTonCommunity", walletConfigType[NETWORK_TYPE_TON_COMMUNITY]);
+                editor.putString("walletBlockchainNameTonCommunity", walletBlockchainName[NETWORK_TYPE_TON_COMMUNITY]);
+                editor.putString("walletConfigFromUrlTonCommunity", walletConfigFromUrl[NETWORK_TYPE_TON_COMMUNITY]);
+
+
                 editor.putInt("walletCurrentNetworkType", currentNetworkType);
 
                 editor.commit();
@@ -139,6 +157,19 @@ public class UserConfig extends BaseController {
             walletConfigType[NETWORK_TYPE_MAIN] = preferences.getInt("walletConfigTypeMain", TonController.CONFIG_TYPE_URL);
             walletBlockchainName[NETWORK_TYPE_MAIN] = preferences.getString("walletBlockchainNameMain", "mainnet");
             walletConfigFromUrl[NETWORK_TYPE_MAIN] = preferences.getString("walletConfigFromUrlMain", "");
+
+            walletConfig[NETWORK_TYPE_NEWTON] = preferences.getString("walletConfigNewton", "");
+            walletConfigUrl[NETWORK_TYPE_NEWTON] = preferences.getString("walletConfigUrlNewton", "https://newton-blockchain.github.io/newton-test.global.config.json");
+            walletConfigType[NETWORK_TYPE_NEWTON] = preferences.getInt("walletConfigTypeNewton", TonController.CONFIG_TYPE_URL);
+            walletBlockchainName[NETWORK_TYPE_NEWTON] = preferences.getString("walletBlockchainNameNewton", "");
+            walletConfigFromUrl[NETWORK_TYPE_NEWTON] = preferences.getString("walletConfigFromUrlNewton", "");
+
+
+            walletConfig[NETWORK_TYPE_TON_COMMUNITY] = preferences.getString("walletConfigTonCommunity", "");
+            walletConfigUrl[NETWORK_TYPE_TON_COMMUNITY] = preferences.getString("walletConfigUrlTonCommunity", "https://toncommunity.org/ton-lite-client-test3.config.json");
+            walletConfigType[NETWORK_TYPE_TON_COMMUNITY] = preferences.getInt("walletConfigTypeTonCommunity", TonController.CONFIG_TYPE_URL);
+            walletBlockchainName[NETWORK_TYPE_TON_COMMUNITY] = preferences.getString("walletBlockchainNameTonCommunity", "testnet3");
+            walletConfigFromUrl[NETWORK_TYPE_TON_COMMUNITY] = preferences.getString("walletConfigFromUrlTonCommunity", "");
 
             currentNetworkType = preferences.getInt("walletCurrentNetworkType", NETWORK_TYPE_TEST);
 

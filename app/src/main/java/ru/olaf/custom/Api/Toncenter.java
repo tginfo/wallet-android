@@ -8,6 +8,8 @@ import androidx.annotation.Nullable;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.telegram.messenger.AccountInstance;
+import org.telegram.messenger.UserConfig;
 import org.telegram.ui.Wallet.WalletTransaction;
 import org.tginfo.telegram.messenger.BuildConfig;
 
@@ -56,13 +58,18 @@ public class Toncenter {
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
 
-        Retrofit mAuthorizationRetrofit = new Retrofit.Builder()
-                .baseUrl("https://toncenter.com/api/test/v2/")
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .client(mHttpClient)
-                .build();
+        Retrofit.Builder mAuthorizationRetrofitBuilder = new Retrofit.Builder();
 
-        return mAuthorizationRetrofit.create(ToncenterMethods.class);
+        mAuthorizationRetrofitBuilder.addConverterFactory(GsonConverterFactory.create(gson));
+        mAuthorizationRetrofitBuilder.client(mHttpClient);
+
+
+        if (getUserConfig().getCurrentNetworkType() == UserConfig.NETWORK_TYPE_TEST)
+            mAuthorizationRetrofitBuilder.baseUrl("https://toncenter.com/api/test/v2/");
+        else if (getUserConfig().getCurrentNetworkType() == UserConfig.NETWORK_TYPE_NEWTON)
+            mAuthorizationRetrofitBuilder.baseUrl("https://toncenter.com/api/newton_test/v2/");
+
+        return mAuthorizationRetrofitBuilder.build().create(ToncenterMethods.class);
     }
 
     private HttpLoggingInterceptor getHttpLoggingInterceptor() {
@@ -98,6 +105,16 @@ public class Toncenter {
         return methods;
     }
 
+
+    public UserConfig getUserConfig() {
+        return getAccountInstance().getUserConfig();
+    }
+
+    public AccountInstance getAccountInstance() {
+        return AccountInstance.getInstance(UserConfig.selectedAccount);
+    }
+
+
     public static WalletTransaction getInternalTransaction(Transaction externalTransaction) {
         TonApi.RawTransaction internalRawTransaction = new TonApi.RawTransaction();
 
@@ -125,10 +142,9 @@ public class Toncenter {
                 externalTransaction.getInMsg().getMsgData().getText() != null ? externalTransaction.getInMsg().getMsgData().getText().getBytes() : null);
         internalRawTransaction.inMsg = internalRawMessage;
 
-        TonApi.RawMessage[] internalRawMessages= new TonApi.RawMessage[externalTransaction.getOutMsgs().size()];
+        TonApi.RawMessage[] internalRawMessages = new TonApi.RawMessage[externalTransaction.getOutMsgs().size()];
 
-        for (int i = 0; i < externalTransaction.getOutMsgs().size(); i++)
-        {
+        for (int i = 0; i < externalTransaction.getOutMsgs().size(); i++) {
             internalRawMessage = new TonApi.RawMessage();
             internalRawMessage.source = new TonApi.AccountAddress(externalTransaction.getOutMsgs().get(i).getSource());
             internalRawMessage.destination = new TonApi.AccountAddress(externalTransaction.getOutMsgs().get(i).getDestination());
