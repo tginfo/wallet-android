@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="AppName">Gram Wallet β</string>
+    <string name="AppName">Gram Wallet</string>
     <string name="ClearButton">Очистить</string>
     <string name="ErrorOccurred">Произошла ошибка.</string>
     <string name="TextCopied">Текст скопирован в буфер</string>
@@ -160,7 +160,8 @@
     <string name="WalletTransactionSender">Отправитель</string>
     <string name="WalletTransactionSendGrams">Отправить Gram на этот адрес</string>
     <string name="WalletTransactionAddressCopied">Адрес скопирован в буфер</string>
-    <string name="WalletSecretWordsCopied">Секретные слова скопированы в буфер</string>
+    <string name="WalletSecretWordsCopy">Копировать секретные слова</string>
+    <string name="WalletSecretWordsCopied">Секретные слова скопированы в буфер обмена</string>
     <string name="WalletStorageFee">коммиссия хранилища: %1$s</string>
     <string name="WalletTransactionFee">комиссия транзакции: %1$s</string>
     <string name="WalletBlockchainFees">комиссия блокчейна: %1$s</string>

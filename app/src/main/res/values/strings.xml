@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="AppName">Gram Wallet β</string>
+    <string name="AppName">Gram Wallet</string>
     <string name="ClearButton">Clear</string>
     <string name="ErrorOccurred">An error occurred.</string>
     <string name="TextCopied">Text copied to clipboard</string>
@@ -160,6 +160,7 @@
     <string name="WalletTransactionSender">Sender</string>
     <string name="WalletTransactionSendGrams">Send Grams to this Address</string>
     <string name="WalletTransactionAddressCopied">Address copied to clipboard</string>
+    <string name="WalletSecretWordsCopy">Copy secret words</string>
     <string name="WalletSecretWordsCopied">Secret words copied to clipboard</string>
     <string name="WalletStorageFee">%1$s storage fee</string>
     <string name="WalletTransactionFee">%1$s transaction fee</string>

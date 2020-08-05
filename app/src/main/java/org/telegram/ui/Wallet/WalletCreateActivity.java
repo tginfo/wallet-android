@@ -472,7 +472,6 @@ public class WalletCreateActivity extends BaseFragment {
         }
         if (currentType == TYPE_IMPORT || currentType == TYPE_WORDS_CHECK) {
             hintWords = getTonController().getHintWords();
-            Log.d("test", "onFragmentCreate: " + hintWords.length);
             if (hintWords == null) {
                 return false;
             }
@@ -641,7 +640,7 @@ public class WalletCreateActivity extends BaseFragment {
             copyWordsButton.setTextColor(Theme.getColor(Theme.key_windowBackgroundWhiteBlueText2));
             copyWordsButton.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
             copyWordsButton.setTypeface(AndroidUtilities.getTypeface("fonts/rmedium.ttf"));
-            copyWordsButton.setText("Копировать слова");
+            copyWordsButton.setText(LocaleController.getString("WalletSecretWordsCopy", R.string.WalletSecretWordsCopy));
         }
 
         imageView = new RLottieImageView(context);
@@ -1563,7 +1562,7 @@ public class WalletCreateActivity extends BaseFragment {
                 AndroidUtilities.showKeyboard(passcodeEditText);
             }
             if (Build.VERSION.SDK_INT >= 23 && AndroidUtilities.allowScreenCapture() && currentType != TYPE_SEND_DONE && currentType != TYPE_CREATE) {
-                AndroidUtilities.setFlagSecure(this, false);
+                AndroidUtilities.setFlagSecure(this, true);
             }
         }
     }
