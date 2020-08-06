@@ -42,6 +42,7 @@
     <string name="GramWallet">Gram Wallet</string>
     <string name="CreateMyWallet">Создать кошелёк</string>
     <string name="ImportExistingWallet">Импорт кошелька</string>
+    <string name="ServerSettings">Настройки сервера</string>
     <string name="WalletCongratulations">Поздравляем</string>
     <string name="WalletCongratulationsinfo">Ваш Gram-колешёк был создан. Только вы его контролируете.\n\nЧтобы не потерять к нему доступ, запишите секретные слова и установите надёжный пароль.</string>
     <string name="WalletContinue">Продолжить</string>
@@ -53,6 +54,7 @@
     <string name="WalletSecretWordsAlertTitle">Точно готово?</string>
     <string name="WalletSecretWordsAlertText">Вы потратили недостаточно времени для записи слов.</string>
     <string name="WalletSecretWordsAlertButton">OK, ПРОСТИТЕ</string>
+    <string name="WalletSecretWordsAlertSkipButton">МНЕ НАПЛЕВАТЬ</string>
     <string name="WalletTestTime">Время теста!</string>
     <string name="WalletTestTimeTitle">Время теста!</string>
     <string name="WalletTestTimeInfo">Теперь давайте проверим, записали ли вы секретные слова правильно.\n\nВведите слова под номерами **%d**, **%d** и **%d** ниже:</string>
@@ -158,6 +160,8 @@
     <string name="WalletTransactionSender">Отправитель</string>
     <string name="WalletTransactionSendGrams">Отправить Gram на этот адрес</string>
     <string name="WalletTransactionAddressCopied">Адрес скопирован в буфер</string>
+    <string name="WalletSecretWordsCopy">Копировать секретные слова</string>
+    <string name="WalletSecretWordsCopied">Секретные слова скопированы в буфер обмена</string>
     <string name="WalletStorageFee">коммиссия хранилища: %1$s</string>
     <string name="WalletTransactionFee">комиссия транзакции: %1$s</string>
     <string name="WalletBlockchainFees">комиссия блокчейна: %1$s</string>
@@ -173,6 +177,7 @@
     <string name="WalletFee">Комиссия блокчейна: ~%1$s Gram</string>
     <string name="WalletPendingWait">Подождите, пока не завершится текущая транзакция..</string>
     <string name="WalletBlockchainName">ID блокчейна</string>
+    <string name="WalletNetworkType">Сети Ton</string>
     <string name="WalletConfigType">Изменить источник</string>
     <string name="WalletConfigTypeInfo">Использование другой конфигурации позволит вам изменить адреса Lite-сервера.</string>
     <string name="WalletConfigTypeUrl">Ссылка</string>
@@ -196,8 +201,12 @@
     <string name="WalletCantEncryptComment">**Внимание:** Ваш комментарий \"%1$s\" **не будет зашифрован**.</string>
     <string name="WalletTestNetworkSwitch">Вы уверены, что хотите переключиться на тестовую сеть testnet? Она предназначена только для тестирования.\n\nЕсли вы продолжите, вам потребуется повторно добавить свой кошелек, используя 24 секретных слова.</string>
     <string name="WalletMainNetworkSwitch">Вы уверены, что хотите переключиться на основную сеть mainnet?\n\nЕсли вы продолжите, вам нужно будет повторно добавить или создать свой кошелек, используя 24 секретных слова.</string>
+    <string name="WalletNewTonNetworkSwitch">Вы уверены, что хотите переключиться на сеть newton?\n\nЕсли вы продолжите, вам нужно будет повторно добавить или создать свой кошелек, используя 24 секретных слова.</string>
+    <string name="WalletTonCommunityNetworkSwitch">Вы уверены, что хотите переключиться на сеть TONCommunity.org?\n\nЕсли вы продолжите, вам нужно будет повторно добавить или создать свой кошелек, используя 24 секретных слова.</string>
     <string name="WalletMainNetwork">Основная сеть</string>
-    <string name="WalletTestNetwork">Тестовая сеть</string>
+    <string name="WalletTestNetwork">Сеть TestNet2</string>
+    <string name="WalletTONCommunityNetwork">Сеть TONCommunity.org</string>
+    <string name="WalletNewTonNetwork">Сеть NewTon</string>
     <string name="WalletEmptyTransaction">Пустая транзакция</string>
     <string name="WalletInitTransaction">Инициализация кошелька</string>
 	<string name="WalletTosUrl"> </string>
@@ -209,7 +218,7 @@
     <string name="WalletOtherIsGram">Ответы на другие вопросы</string>
     <string name="WalletWhatIsGramFull">Gram – это токен блокчейна TON.\n\nСуществуют несколько сетей: сейчас доступен только testnet2, в будущем будет запущена mainnet (основная сеть).\n</string>
     <string name="WalletDifference">Чем отличаются сети</string>
-    <string name="WalletDifferenceFull">testnet2 (тестовая сеть) предназначена только для тестирования сети, проверки работы переводов, токены не имеют ценности и не продаются за реальные деньги.\n\nmainnet (основная сеть) - сеть, которая будет запущена после тестирования. Её токены можно будет покупать и продавать на биржах.\n</string>    <string name="WalletTransactionsInfo">История переводов</string>
+    <string name="WalletDifferenceFull">testnet2 (тестовая сеть) предназначена только для тестирования сети, проверки работы переводов, токены не имеют ценности и не продаются за реальные деньги.\n\nmainnet (основная сеть) - сеть, которая будет запущена после тестирования. Её токены можно будет покупать и продавать на биржах.\n\nТестовая сеть TONCommunity.org - сеть, имеющая лучшую конфигурацию и более удобный клиент. К блокчейн сети может легко присоединиться больше пользователей.\n</string>    <string name="WalletTransactionsInfo">История переводов</string>
     <string name="WalletTransactionsInfoWallet">Адрес кошелька</string>
     <string name="WalletTransactionsInfoError">Произошла ошибка, попробуйте позже или свяжитесь с разработчиками</string>
 

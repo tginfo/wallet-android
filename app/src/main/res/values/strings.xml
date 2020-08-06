@@ -42,6 +42,7 @@
     <string name="GramWallet">Gram Wallet</string>
     <string name="CreateMyWallet">Create My Wallet</string>
     <string name="ImportExistingWallet">Import existing wallet</string>
+    <string name="ServerSettings">Server settings</string>
     <string name="WalletCongratulations">Congratulations</string>
     <string name="WalletCongratulationsinfo">Your Gram wallet has just been created. Only you control it.\n\nTo be able to always have access to it, please write down secret words and set up a secure passcode.</string>
     <string name="WalletContinue">Continue</string>
@@ -53,6 +54,7 @@
     <string name="WalletSecretWordsAlertTitle">Sure done?</string>
     <string name="WalletSecretWordsAlertText">You didn’t have enough time to write these words down.</string>
     <string name="WalletSecretWordsAlertButton">OK, SORRY</string>
+    <string name="WalletSecretWordsAlertSkipButton">I DON\'T GIVE A FUCK</string>
     <string name="WalletTestTime">Test time!</string>
     <string name="WalletTestTimeTitle">Test Time!</string>
     <string name="WalletTestTimeInfo">Now let’s check that you wrote your secret words correctly.\n\nPlease enter the words **%d**, **%d** and **%d** below:</string>
@@ -158,6 +160,8 @@
     <string name="WalletTransactionSender">Sender</string>
     <string name="WalletTransactionSendGrams">Send Grams to this Address</string>
     <string name="WalletTransactionAddressCopied">Address copied to clipboard</string>
+    <string name="WalletSecretWordsCopy">Copy secret words</string>
+    <string name="WalletSecretWordsCopied">Secret words copied to clipboard</string>
     <string name="WalletStorageFee">%1$s storage fee</string>
     <string name="WalletTransactionFee">%1$s transaction fee</string>
     <string name="WalletBlockchainFees">%1$s blockchain fees</string>
@@ -173,6 +177,7 @@
     <string name="WalletFee">Blockchain fee: ~%1$s Grams</string>
     <string name="WalletPendingWait">Please wait until the current transaction is completed.</string>
     <string name="WalletBlockchainName">Blockchain ID</string>
+    <string name="WalletNetworkType">Ton networks</string>
     <string name="WalletConfigType">Config source</string>
     <string name="WalletConfigTypeInfo">Using a different configuration allows you to change Lite Server addresses.</string>
     <string name="WalletConfigTypeUrl">Url</string>
@@ -196,8 +201,13 @@
     <string name="WalletCantEncryptComment">**Note:** Your comment \"%1$s\" will **not be encrypted**.</string>
     <string name="WalletTestNetworkSwitch">Are you sure you want to switch to the Test Gram network? It exists only for testing purposes.\n\nIf you proceed, you will need to reconnect your wallet using 24 secret words.</string>
     <string name="WalletMainNetworkSwitch">Are you sure you want to switch to the Main Gram network?\n\nIf you proceed, you will need to reconnect your wallet using 24 secret words.</string>
+    <string name="WalletNewTonNetworkSwitch">Are you sure you want to switch to the newton network?\n\nIf you proceed, you will need to reconnect your wallet using 24 secret words.</string>
+    <string name="WalletTonCommunityNetworkSwitch">Are you sure you want to switch to the TONCommunity.org network?\n\nIf you proceed, you will need to reconnect your wallet using 24 secret words.</string>
     <string name="WalletMainNetwork">Main Network</string>
-    <string name="WalletTestNetwork">Test Network</string>
+    <string name="WalletTestNetwork">TestNet2 Network</string>
+    <string name="WalletTONCommunityNetwork">TONCommunity.org Network</string>
+    <string name="WalletNewTonNetwork">NewTon Network</string>
+
     <string name="WalletEmptyTransaction">Empty transaction</string>
     <string name="WalletInitTransaction">Wallet initialization</string>
     <string name="WalletTosUrl"> </string>
@@ -209,7 +219,8 @@
     <string name="WalletOtherIsGram">Answers to other questions</string>
     <string name="WalletWhatIsGramFull">Gram is a TON blockchain token.\n\nThere are several networks: now only testnet2 is available, in the future mainnet (main network) will be launched.\n</string>
     <string name="WalletDifference">What is the difference between networks</string>
-    <string name="WalletDifferenceFull">testnet2 (test network) is intended only for testing the network, checking the operation of transfers, tokens have no value and are not sold for real money.\n\nmainnet - The network that will be launched after testing. Its tokens can be bought and sold on exchanges.\n</string>    <string name="WalletTransactionsInfo">Transactions history</string>
+    <string name="WalletDifferenceFull">testnet2 (test network) is intended only for testing the network, checking the operation of transfers, tokens have no value and are not sold for real money.\n\nmainnet - The network that will be launched after testing. Its tokens can be bought and sold on exchanges.\n\nTONCommunity.org testnet has better config and more user-friendly client. It is possible for more users to easily join the blockchain network.\n</string>
+    <string name="WalletTransactionsInfo">Transactions history</string>
     <string name="WalletTransactionsInfoWallet">Wallet address</string>
     <string name="WalletTransactionsInfoError">Error while loading, try later or contact with developers</string>
 

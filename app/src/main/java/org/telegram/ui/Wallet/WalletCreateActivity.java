@@ -13,7 +13,10 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.KeyguardManager;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -34,6 +37,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
 import android.text.style.URLSpan;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.ActionMode;
 import android.view.Gravity;
@@ -94,6 +98,9 @@ public class WalletCreateActivity extends BaseFragment {
     private TextView descriptionText;
     private TextView descriptionText2;
     private TextView importButton;
+    private TextView settingsServerButton;
+    private TextView copyWordsButton;
+
     private NumericEditText[] editTexts;
     private LinearLayout editTextContainer;
     private ScrollView scrollView;
@@ -119,6 +126,7 @@ public class WalletCreateActivity extends BaseFragment {
     private int currentType;
 
     private boolean changingPasscode;
+    private boolean secretWordsCopied;
     private boolean exportingWords;
     private boolean resumeCreation;
     private String[] secretWords;
@@ -560,6 +568,17 @@ public class WalletCreateActivity extends BaseFragment {
                 fragment.fragmentToRemove = this;
                 presentFragment(fragment);
             });
+
+            settingsServerButton = new TextView(context);
+            settingsServerButton.setTextColor(Theme.getColor(Theme.key_windowBackgroundWhiteBlueText2));
+            settingsServerButton.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
+            settingsServerButton.setText(LocaleController.getString("ServerSettings", R.string.ServerSettings));
+            settingsServerButton.setGravity(Gravity.CENTER_VERTICAL);
+            actionBar.addView(settingsServerButton, LayoutHelper.createFrame(LayoutHelper.WRAP_CONTENT, LayoutHelper.MATCH_PARENT, Gravity.TOP | Gravity.LEFT, 22, 0, 0, 0));
+            settingsServerButton.setOnClickListener(v -> {
+                WalletSettingsActivity fragment = new WalletSettingsActivity(WalletSettingsActivity.TYPE_SERVER, this);
+                presentFragment(fragment);
+            });
         } else if (currentType == TYPE_IMPORT || currentType == TYPE_WORDS_CHECK) {
             hintPopupLayout = new ActionBarPopupWindow.ActionBarPopupWindowLayout(context);
             hintPopupLayout.setAnimationEnabled(false);
@@ -614,6 +633,14 @@ public class WalletCreateActivity extends BaseFragment {
                     menu.addItemWithWidth(item_logout, R.drawable.ic_ab_delete, AndroidUtilities.dp(56));
                 }
             }
+        } else if (currentType == TYPE_24_WORDS) {
+            copyWordsButton = new TextView(context);
+            copyWordsButton.setPadding(AndroidUtilities.dp(34), 0, AndroidUtilities.dp(34), 0);
+            copyWordsButton.setGravity(Gravity.CENTER);
+            copyWordsButton.setTextColor(Theme.getColor(Theme.key_windowBackgroundWhiteBlueText2));
+            copyWordsButton.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
+            copyWordsButton.setTypeface(AndroidUtilities.getTypeface("fonts/rmedium.ttf"));
+            copyWordsButton.setText(LocaleController.getString("WalletSecretWordsCopy", R.string.WalletSecretWordsCopy));
         }
 
         imageView = new RLottieImageView(context);
@@ -691,6 +718,19 @@ public class WalletCreateActivity extends BaseFragment {
                         builder.setTitle(LocaleController.getString("WalletSecretWordsAlertTitle", R.string.WalletSecretWordsAlertTitle));
                         builder.setMessage(LocaleController.getString("WalletSecretWordsAlertText", R.string.WalletSecretWordsAlertText));
                         builder.setPositiveButton(LocaleController.getString("WalletSecretWordsAlertButton", R.string.WalletSecretWordsAlertButton), null);
+
+                        if (secretWordsCopied)
+                            builder.setNegativeButton(LocaleController.getString("WalletSecretWordsAlertSkipButton", R.string.WalletSecretWordsAlertSkipButton), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    WalletCreateActivity fragment = new WalletCreateActivity(TYPE_WORDS_CHECK);
+                                    fragment.fragmentToRemove = WalletCreateActivity.this;
+                                    fragment.secretWords = secretWords;
+                                    presentFragment(fragment);
+                                }
+                            });
+
+
                         showDialog(builder.create());
                         return;
                     }
@@ -756,6 +796,7 @@ public class WalletCreateActivity extends BaseFragment {
             }
         });
 
+
         switch (currentType) {
             case TYPE_CREATE:
             case TYPE_TOO_BAD:
@@ -783,6 +824,11 @@ public class WalletCreateActivity extends BaseFragment {
 
                         if (importButton != null && Build.VERSION.SDK_INT >= 21) {
                             FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) importButton.getLayoutParams();
+                            layoutParams.topMargin = AndroidUtilities.statusBarHeight;
+                        }
+
+                        if (settingsServerButton != null && Build.VERSION.SDK_INT >= 21) {
+                            FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) settingsServerButton.getLayoutParams();
                             layoutParams.topMargin = AndroidUtilities.statusBarHeight;
                         }
 
@@ -1036,6 +1082,26 @@ public class WalletCreateActivity extends BaseFragment {
                             (b == 0 ? leftColumn : rightColumn).addView(textView, LayoutHelper.createLinear(LayoutHelper.WRAP_CONTENT, LayoutHelper.WRAP_CONTENT, 0, a == 0 ? 0 : 10, 0, 0));
                         }
                     }
+
+                    copyWordsButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Context context = view.getContext();
+                            if (context == null)
+                                return;
+
+                            ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+                            if (clipboardManager != null) {
+                                Toast.makeText(context, LocaleController.getString("WalletSecretWordsCopied", R.string.WalletSecretWordsCopied), Toast.LENGTH_SHORT).show();
+                                ClipData clipData = ClipData.newPlainText("GramSecretWords", TextUtils.join("\n", secretWords));
+                                clipboardManager.setPrimaryClip(clipData);
+                                secretWordsCopied = true;
+                            }
+                        }
+                    });
+                    scrollViewLinearLayout.addView(copyWordsButton, LayoutHelper.createLinear(LayoutHelper.WRAP_CONTENT, 42, Gravity.CENTER_HORIZONTAL | Gravity.TOP, 0, 36, 0, 0));
+
+
                 } else if (currentType == TYPE_WORDS_CHECK || currentType == TYPE_IMPORT) {
                     maxEditNumberWidth = 0;
                     editTexts = new NumericEditText[currentType == TYPE_WORDS_CHECK ? 3 : 24];
@@ -1429,9 +1495,9 @@ public class WalletCreateActivity extends BaseFragment {
                     if (currentType == TYPE_CREATE) {
                         AlertsCreator.showSimpleAlert(WalletCreateActivity.this, LocaleController.getString("Wallet", R.string.Wallet), LocaleController.getString("ErrorOccurred", R.string.ErrorOccurred) + "\n" + (error != null ? error.message : text));
                     } else {
-                        if (text.startsWith("TONLIB")){
+                        if (text.startsWith("TONLIB")) {
                             AlertsCreator.showSimpleAlert(WalletCreateActivity.this, LocaleController.getString("WalletImportAlertTitle", R.string.WalletImportAlertTitle), LocaleController.getString("WalletImportAlertText", R.string.WalletImportAlertText));
-                        } else{
+                        } else {
                             AlertsCreator.showSimpleAlert(WalletCreateActivity.this, LocaleController.getString("Wallet", R.string.Wallet), LocaleController.getString("ErrorOccurred", R.string.ErrorOccurred) + "\n" + text);
                         }
                     }
@@ -1710,6 +1776,10 @@ public class WalletCreateActivity extends BaseFragment {
                 new ThemeDescription(passcodeEditText, ThemeDescription.FLAG_HINTTEXTCOLOR, null, null, null, null, Theme.key_windowBackgroundWhiteHintText),
 
                 new ThemeDescription(importButton, ThemeDescription.FLAG_TEXTCOLOR, null, null, null, null, Theme.key_windowBackgroundWhiteBlueText2),
+                new ThemeDescription(settingsServerButton, ThemeDescription.FLAG_TEXTCOLOR, null, null, null, null, Theme.key_windowBackgroundWhiteBlueText2),
+                new ThemeDescription(copyWordsButton, ThemeDescription.FLAG_TEXTCOLOR, null, null, null, null, Theme.key_windowBackgroundWhiteBlueText2),
+
+
                 new ThemeDescription(titleTextView, ThemeDescription.FLAG_TEXTCOLOR, null, null, null, null, Theme.key_windowBackgroundWhiteBlackText),
                 new ThemeDescription(descriptionText, ThemeDescription.FLAG_TEXTCOLOR, null, null, null, null, Theme.key_windowBackgroundWhiteGrayText6),
                 new ThemeDescription(descriptionText2, ThemeDescription.FLAG_TEXTCOLOR, null, null, null, null, Theme.key_windowBackgroundWhiteGrayText6),

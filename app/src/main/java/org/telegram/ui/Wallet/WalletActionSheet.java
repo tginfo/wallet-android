@@ -49,11 +49,13 @@ import android.widget.Toast;
 
 import androidx.core.widget.NestedScrollView;
 
+import org.telegram.messenger.AccountInstance;
 import org.telegram.messenger.AndroidUtilities;
 import org.telegram.messenger.ApplicationLoader;
 import org.telegram.messenger.FileLog;
 import org.telegram.messenger.LocaleController;
 import org.telegram.messenger.TonController;
+import org.telegram.messenger.UserConfig;
 import org.telegram.messenger.Utilities;
 import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.AlertDialog;
@@ -335,7 +337,7 @@ public class WalletActionSheet extends BottomSheet {
 
             } else {
 
-                if (currentTransaction != null && !currentTransaction.isEmpty) {
+                if (currentTransaction != null && !currentTransaction.isEmpty && !editText.getText().toString().equals("Ef8zMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzM0vF") && getUserConfig().getCurrentNetworkType() != UserConfig.NETWORK_TYPE_TON_COMMUNITY) {
                     editText.setFocusable(false);
                     editText.setEnabled(true);
                     editText.setCursorVisible(false);
@@ -365,6 +367,15 @@ public class WalletActionSheet extends BottomSheet {
                     Toast.makeText(v.getContext(), LocaleController.getString("WalletTransactionAddressCopied", R.string.WalletTransactionAddressCopied), Toast.LENGTH_SHORT).show();
                 });
             }
+        }
+
+
+        public UserConfig getUserConfig() {
+            return getAccountInstance().getUserConfig();
+        }
+
+        public AccountInstance getAccountInstance() {
+            return AccountInstance.getInstance(UserConfig.selectedAccount);
         }
 
         @Override
