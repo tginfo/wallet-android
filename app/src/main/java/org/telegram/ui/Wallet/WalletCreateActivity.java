@@ -1083,20 +1083,13 @@ public class WalletCreateActivity extends BaseFragment {
                         }
                     }
 
-                    copyWordsButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Context context = view.getContext();
-                            if (context == null)
-                                return;
-
-                            ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-                            if (clipboardManager != null) {
-                                Toast.makeText(context, LocaleController.getString("WalletSecretWordsCopied", R.string.WalletSecretWordsCopied), Toast.LENGTH_SHORT).show();
-                                ClipData clipData = ClipData.newPlainText("GramSecretWords", TextUtils.join("\n", secretWords));
-                                clipboardManager.setPrimaryClip(clipData);
-                                secretWordsCopied = true;
-                            }
+                    copyWordsButton.setOnClickListener(view -> {
+                        ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+                        if (clipboardManager != null) {
+                            Toast.makeText(context, LocaleController.getString("WalletSecretWordsCopied", R.string.WalletSecretWordsCopied), Toast.LENGTH_SHORT).show();
+                            ClipData clipData = ClipData.newPlainText("GramSecretWords", TextUtils.join("\n", secretWords));
+                            clipboardManager.setPrimaryClip(clipData);
+                            secretWordsCopied = true;
                         }
                     });
                     scrollViewLinearLayout.addView(copyWordsButton, LayoutHelper.createLinear(LayoutHelper.WRAP_CONTENT, 42, Gravity.CENTER_HORIZONTAL | Gravity.TOP, 0, 36, 0, 0));

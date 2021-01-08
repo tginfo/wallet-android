@@ -18,6 +18,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Matrix;
@@ -40,6 +41,7 @@ import android.text.SpannedString;
 import android.text.method.LinkMovementMethod;
 import android.util.DisplayMetrics;
 import android.util.StateSet;
+import android.util.TypedValue;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.Surface;
@@ -941,5 +943,9 @@ public class AndroidUtilities {
 
     public static File getSharingDirectory() {
         return new File(ApplicationLoader.applicationContext.getCacheDir(), "sharing/");
+    }
+
+    public static int dpToPixels(float dipValue) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dipValue, Resources.getSystem().getDisplayMetrics());
     }
 }

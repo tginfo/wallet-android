@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.res.Configuration;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 
 import java.io.File;
 
@@ -83,8 +84,8 @@ public class ApplicationLoader extends Application {
             applicationContext = getApplicationContext();
         }
 
+        UserConfig.selectedAccount = PreferenceManager.getDefaultSharedPreferences(applicationContext).getInt("currentAccount", 0);
         NativeLoader.initNativeLibs(ApplicationLoader.applicationContext);
-
         applicationHandler = new Handler(applicationContext.getMainLooper());
     }
 

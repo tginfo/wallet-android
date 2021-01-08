@@ -201,12 +201,12 @@
     <string name="WalletCantEncryptComment">**Note:** Your comment \"%1$s\" will **not be encrypted**.</string>
     <string name="WalletTestNetworkSwitch">Are you sure you want to switch to the Test Gram network? It exists only for testing purposes.\n\nIf you proceed, you will need to reconnect your wallet using 24 secret words.</string>
     <string name="WalletMainNetworkSwitch">Are you sure you want to switch to the Main Gram network?\n\nIf you proceed, you will need to reconnect your wallet using 24 secret words.</string>
-    <string name="WalletNewTonNetworkSwitch">Are you sure you want to switch to the newton network?\n\nIf you proceed, you will need to reconnect your wallet using 24 secret words.</string>
+    <string name="WalletFreeTonNetworkSwitch">Are you sure you want to switch to the Free TON network?\n\nIf you proceed, you will need to reconnect your wallet using 24 secret words.</string>
     <string name="WalletTonCommunityNetworkSwitch">Are you sure you want to switch to the TONCommunity.org network?\n\nIf you proceed, you will need to reconnect your wallet using 24 secret words.</string>
     <string name="WalletMainNetwork">Main Network</string>
     <string name="WalletTestNetwork">TestNet2 Network</string>
     <string name="WalletTONCommunityNetwork">TONCommunity.org Network</string>
-    <string name="WalletNewTonNetwork">NewTon Network</string>
+    <string name="WalletFreeTonNetwork">Free TON Network</string>
 
     <string name="WalletEmptyTransaction">Empty transaction</string>
     <string name="WalletInitTransaction">Wallet initialization</string>
@@ -225,6 +225,10 @@
     <string name="WalletTransactionsInfoError">Error while loading, try later or contact with developers</string>
 
     <string name="CreateMyWalletTerms"> </string>
+
+    <string name="WalletDefaultAccountName">No name %d</string>
+    <string name="WalletSelectAccount">Select account</string>
+
     <!--plural-->
     <string name="Digits_zero">%1$d digits</string>
     <string name="Digits_one">%1$d digit</string>

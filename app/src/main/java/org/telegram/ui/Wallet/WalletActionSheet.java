@@ -337,7 +337,10 @@ public class WalletActionSheet extends BottomSheet {
 
             } else {
 
-                if (currentTransaction != null && !currentTransaction.isEmpty && !editText.getText().toString().equals("Ef8zMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzM0vF") && getUserConfig().getCurrentNetworkType() != UserConfig.NETWORK_TYPE_TON_COMMUNITY) {
+                if (currentTransaction != null
+                        && !currentTransaction.isEmpty
+                        && !editText.getText().toString().equals("Ef8zMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzM0vF")
+                        && getUserConfig().getCurrentNetworkType() == UserConfig.NETWORK_TYPE_TEST) {
                     editText.setFocusable(false);
                     editText.setEnabled(true);
                     editText.setCursorVisible(false);
