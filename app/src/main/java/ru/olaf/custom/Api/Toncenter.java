@@ -62,12 +62,12 @@ public class Toncenter {
 
         mAuthorizationRetrofitBuilder.addConverterFactory(GsonConverterFactory.create(gson));
         mAuthorizationRetrofitBuilder.client(mHttpClient);
+        mAuthorizationRetrofitBuilder.baseUrl("https://toncenter.com/api/test/v2/");
 
-
-        if (getUserConfig().getCurrentNetworkType() == UserConfig.NETWORK_TYPE_TEST)
-            mAuthorizationRetrofitBuilder.baseUrl("https://toncenter.com/api/test/v2/");
-        else if (getUserConfig().getCurrentNetworkType() == UserConfig.NETWORK_TYPE_NEWTON)
-            mAuthorizationRetrofitBuilder.baseUrl("https://toncenter.com/api/newton_test/v2/");
+//        if (getUserConfig().getCurrentNetworkType() == UserConfig.NETWORK_TYPE_TEST)
+//            mAuthorizationRetrofitBuilder.baseUrl("https://toncenter.com/api/test/v2/");
+//        else if (getUserConfig().getCurrentNetworkType() == UserConfig.NETWORK_TYPE_NEWTON)
+//            mAuthorizationRetrofitBuilder.baseUrl("https://toncenter.com/api/newton_test/v2/");
 
         return mAuthorizationRetrofitBuilder.build().create(ToncenterMethods.class);
     }

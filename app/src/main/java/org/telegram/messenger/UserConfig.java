@@ -10,6 +10,16 @@ package org.telegram.messenger;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Base64;
+import android.util.Log;
+
+import androidx.annotation.ColorInt;
+
+
+import com.google.android.gms.common.util.ArrayUtils;
+
+import org.tginfo.telegram.messenger.R;
+
+import java.util.Arrays;
 
 public class UserConfig extends BaseController {
 
@@ -38,14 +48,18 @@ public class UserConfig extends BaseController {
     private int[] walletConfigType = new int[4];
 
     private int currentNetworkType;
+    private String currentAccountName;
+    @ColorInt
+    private int currentAccountColor;
+
 
     public static int NETWORK_TYPE_TEST = 0;
-    public static int NETWORK_TYPE_MAIN = 1;
-    public static int NETWORK_TYPE_NEWTON = 2;
-    public static int NETWORK_TYPE_TON_COMMUNITY = 3;
+    public static int NETWORK_TYPE_FREETON = 1;
+    public static int NETWORK_TYPE_TON_COMMUNITY = 2;
 
 
     private static volatile UserConfig[] Instance = new UserConfig[UserConfig.MAX_ACCOUNT_COUNT];
+
     public static UserConfig getInstance(int num) {
         UserConfig localInstance = Instance[num];
         if (localInstance == null) {
@@ -62,6 +76,7 @@ public class UserConfig extends BaseController {
     public UserConfig(int instance) {
         super(instance);
     }
+
 
     public void saveConfig(boolean all) {
         synchronized (sync) {
@@ -92,18 +107,11 @@ public class UserConfig extends BaseController {
                 editor.putString("walletBlockchainName", walletBlockchainName[NETWORK_TYPE_TEST]);
                 editor.putString("walletConfigFromUrl", walletConfigFromUrl[NETWORK_TYPE_TEST]);
 
-                editor.putString("walletConfigMain", walletConfig[NETWORK_TYPE_MAIN]);
-                editor.putString("walletConfigUrlMain", walletConfigUrl[NETWORK_TYPE_MAIN]);
-                editor.putInt("walletConfigTypeMain", walletConfigType[NETWORK_TYPE_MAIN]);
-                editor.putString("walletBlockchainNameMain", walletBlockchainName[NETWORK_TYPE_MAIN]);
-                editor.putString("walletConfigFromUrlMain", walletConfigFromUrl[NETWORK_TYPE_MAIN]);
-
-
-                editor.putString("walletConfigNewton", walletConfig[NETWORK_TYPE_NEWTON]);
-                editor.putString("walletConfigUrlNewton", walletConfigUrl[NETWORK_TYPE_NEWTON]);
-                editor.putInt("walletConfigTypeNewton", walletConfigType[NETWORK_TYPE_NEWTON]);
-                editor.putString("walletBlockchainNameNewton", walletBlockchainName[NETWORK_TYPE_NEWTON]);
-                editor.putString("walletConfigFromUrlNewton", walletConfigFromUrl[NETWORK_TYPE_NEWTON]);
+                editor.putString("walletConfigFreeton", walletConfig[NETWORK_TYPE_FREETON]);
+                editor.putString("walletConfigUrlFreeton", walletConfigUrl[NETWORK_TYPE_FREETON]);
+                editor.putInt("walletConfigTypeFreeton", walletConfigType[NETWORK_TYPE_FREETON]);
+                editor.putString("walletBlockchainNameFreeton", walletBlockchainName[NETWORK_TYPE_FREETON]);
+                editor.putString("walletConfigFromUrlFreeton", walletConfigFromUrl[NETWORK_TYPE_FREETON]);
 
 
                 editor.putString("walletConfigTonCommunity", walletConfig[NETWORK_TYPE_TON_COMMUNITY]);
@@ -114,12 +122,19 @@ public class UserConfig extends BaseController {
 
 
                 editor.putInt("walletCurrentNetworkType", currentNetworkType);
+                editor.putString("walletCurrentAccountName", currentAccountName);
+                editor.putInt("walletCurrentAccountColor", currentAccountColor);
 
                 editor.commit();
             } catch (Exception e) {
                 FileLog.e(e);
             }
         }
+    }
+
+    public void loadConfigForce() {
+        configLoaded = false;
+        loadConfig();
     }
 
     public void loadConfig() {
@@ -147,22 +162,17 @@ public class UserConfig extends BaseController {
                 }
             }
             walletConfig[NETWORK_TYPE_TEST] = preferences.getString("walletConfig", "");
-            walletConfigUrl[NETWORK_TYPE_TEST] = preferences.getString("walletConfigUrl", "https://ton.org/config-test.json");
+            walletConfigUrl[NETWORK_TYPE_TEST] = preferences.getString("walletConfigUrl", "https://test.ton.org/ton-lite-client-test1.config.json");
             walletConfigType[NETWORK_TYPE_TEST] = preferences.getInt("walletConfigType", TonController.CONFIG_TYPE_URL);
-            walletBlockchainName[NETWORK_TYPE_TEST] = preferences.getString("walletBlockchainName", "testnet2");
+            walletBlockchainName[NETWORK_TYPE_TEST] = preferences.getString("walletBlockchainName", "");
             walletConfigFromUrl[NETWORK_TYPE_TEST] = preferences.getString("walletConfigFromUrl", "");
 
-            walletConfig[NETWORK_TYPE_MAIN] = preferences.getString("walletConfigMain", "");
-            walletConfigUrl[NETWORK_TYPE_MAIN] = preferences.getString("walletConfigUrlMain", "https://ton.org/config.json");
-            walletConfigType[NETWORK_TYPE_MAIN] = preferences.getInt("walletConfigTypeMain", TonController.CONFIG_TYPE_URL);
-            walletBlockchainName[NETWORK_TYPE_MAIN] = preferences.getString("walletBlockchainNameMain", "mainnet");
-            walletConfigFromUrl[NETWORK_TYPE_MAIN] = preferences.getString("walletConfigFromUrlMain", "");
 
-            walletConfig[NETWORK_TYPE_NEWTON] = preferences.getString("walletConfigNewton", "");
-            walletConfigUrl[NETWORK_TYPE_NEWTON] = preferences.getString("walletConfigUrlNewton", "https://newton-blockchain.github.io/newton-test.global.config.json");
-            walletConfigType[NETWORK_TYPE_NEWTON] = preferences.getInt("walletConfigTypeNewton", TonController.CONFIG_TYPE_URL);
-            walletBlockchainName[NETWORK_TYPE_NEWTON] = preferences.getString("walletBlockchainNameNewton", "");
-            walletConfigFromUrl[NETWORK_TYPE_NEWTON] = preferences.getString("walletConfigFromUrlNewton", "");
+            walletConfig[NETWORK_TYPE_FREETON] = preferences.getString("walletConfigFreeton", "");
+            walletConfigUrl[NETWORK_TYPE_FREETON] = preferences.getString("walletConfigUrlFreeton", "https://raw.githubusercontent.com/tonlabs/main.ton.dev/master/configs/ton-lite-client.config.json");
+            walletConfigType[NETWORK_TYPE_FREETON] = preferences.getInt("walletConfigTypeFreeton", TonController.CONFIG_TYPE_URL);
+            walletBlockchainName[NETWORK_TYPE_FREETON] = preferences.getString("walletBlockchainNameFreeton", "");
+            walletConfigFromUrl[NETWORK_TYPE_FREETON] = preferences.getString("walletConfigFromUrlFreeton", "");
 
 
             walletConfig[NETWORK_TYPE_TON_COMMUNITY] = preferences.getString("walletConfigTonCommunity", "");
@@ -171,11 +181,16 @@ public class UserConfig extends BaseController {
             walletBlockchainName[NETWORK_TYPE_TON_COMMUNITY] = preferences.getString("walletBlockchainNameTonCommunity", "testnet3");
             walletConfigFromUrl[NETWORK_TYPE_TON_COMMUNITY] = preferences.getString("walletConfigFromUrlTonCommunity", "");
 
-            currentNetworkType = preferences.getInt("walletCurrentNetworkType", NETWORK_TYPE_TEST);
+            currentNetworkType = preferences.getInt("walletCurrentNetworkType", NETWORK_TYPE_FREETON);
+            currentAccountName = preferences.getString("walletCurrentAccountName",
+                    String.format(LocaleController.getString("WalletDefaultAccountName", R.string.WalletDefaultAccountName), currentAccount));
+            currentAccountColor = preferences.getInt("walletCurrentAccountColor", R.color.WalletDefaultAccountColor);
+
 
             configLoaded = true;
         }
     }
+
 
     public String getWalletConfig() {
         return walletConfig[currentNetworkType];
@@ -184,7 +199,6 @@ public class UserConfig extends BaseController {
     public String getWalletConfig(int type) {
         return walletConfig[type];
     }
-
 
     public void setWalletConfig(int type, String config) {
         walletConfig[type] = config;
@@ -246,8 +260,30 @@ public class UserConfig extends BaseController {
         currentNetworkType = type;
     }
 
+    public void setCurrentAccountName(String accountName) {
+        currentAccountName = accountName;
+    }
+
+    public String getCurrentAccountName() {
+        return currentAccountName;
+    }
+
+    public void setCurrentAccountColor(@ColorInt int currentAccountColor) {
+        this.currentAccountColor = currentAccountColor;
+    }
+
+    @ColorInt
+    public int getCurrentAccountColor() {
+        return currentAccountColor;
+    }
+
+    public boolean isEmpty() {
+        return tonEncryptedData == null;
+    }
+
+
     private SharedPreferences getPreferences() {
-        return ApplicationLoader.applicationContext.getSharedPreferences("userconfig", Context.MODE_PRIVATE);
+        return ApplicationLoader.applicationContext.getSharedPreferences("tonConfig_" + currentAccount, Context.MODE_PRIVATE);
     }
 
     public void clearTonConfig() {

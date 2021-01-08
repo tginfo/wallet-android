@@ -15,6 +15,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.ActionMode;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -53,7 +54,6 @@ public class LaunchActivity extends Activity implements ActionBarLayout.ActionBa
     protected DrawerLayoutContainer drawerLayoutContainer;
     private AlertDialog visibleDialog;
 
-    private int currentAccount;
 
     private AlertDialog localeDialog;
     private boolean loadingLocaleDialog;
@@ -153,7 +153,7 @@ public class LaunchActivity extends Activity implements ActionBarLayout.ActionBa
 
     private BaseFragment getCurrentWalletFragment() {
         BaseFragment fragment;
-        UserConfig userConfig = UserConfig.getInstance(currentAccount);
+        UserConfig userConfig = UserConfig.getInstance(UserConfig.selectedAccount);
         /*if (!TextUtils.isEmpty(userConfig.tonEncryptedData) && TextUtils.isEmpty(userConfig.tonAccountAddress) && userConfig.tonWalletVersion == 0) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(LocaleController.getString("Wallet", R.string.Wallet));
@@ -205,7 +205,7 @@ public class LaunchActivity extends Activity implements ActionBarLayout.ActionBa
         }
 
         if (transferWalletUrl != null) {
-            UserConfig userConfig = UserConfig.getInstance(currentAccount);
+            UserConfig userConfig = UserConfig.getInstance(UserConfig.selectedAccount);
             if (TextUtils.isEmpty(userConfig.tonEncryptedData)) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle(LocaleController.getString("Wallet", R.string.Wallet));

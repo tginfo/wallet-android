@@ -30,8 +30,6 @@ import org.telegram.tgnet.ConnectionsManager;
 
 public class BaseFragment {
 
-    protected int currentAccount = UserConfig.selectedAccount;
-
     private static int lastClassGuid = 0;
 
     private boolean isFinished;
@@ -431,7 +429,7 @@ public class BaseFragment {
     }
 
     public AccountInstance getAccountInstance() {
-        return AccountInstance.getInstance(currentAccount);
+        return AccountInstance.getInstance(UserConfig.selectedAccount);
     }
 
     protected ConnectionsManager getConnectionsManager() {

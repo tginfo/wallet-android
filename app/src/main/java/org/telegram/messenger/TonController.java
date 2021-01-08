@@ -24,6 +24,7 @@ import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.KeyProperties;
 import android.text.TextUtils;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -65,6 +66,7 @@ import javax.security.auth.x500.X500Principal;
 
 import androidx.annotation.UiThread;
 import androidx.core.content.FileProvider;
+
 import drinkless.org.ton.Client;
 import drinkless.org.ton.TonApi;
 
@@ -116,6 +118,7 @@ public class TonController extends BaseController {
     }
 
     private static volatile TonController[] Instance = new TonController[UserConfig.MAX_ACCOUNT_COUNT];
+
     public static TonController getInstance(int num) {
         TonController localInstance = Instance[num];
         if (localInstance == null) {
@@ -913,7 +916,7 @@ public class TonController extends BaseController {
         }
         TonApi.Config config = getConfig();
 
-        keyDirectoty = new File(ApplicationLoader.getFilesDirFixed(), "ton" + currentAccount);
+        keyDirectoty = new File(ApplicationLoader.getFilesDirFixed(), "ton_" + currentAccount);
         keyDirectoty.mkdirs();
         currentSetConfig = config.config;
         currentSetConfigName = config.blockchainName;
@@ -1237,6 +1240,7 @@ public class TonController extends BaseController {
     }
 
     private HashSet<TonApi.MsgData> decryptingMessages = new HashSet<>();
+
     public void decryptMessage(TonApi.MsgData msgData, TonApi.AccountAddress accountAddress, CommentDecryptCallback callback) {
         if (memInputKey == null || msgData == null || decryptingMessages.contains(msgData)) {
             return;
@@ -1281,64 +1285,57 @@ public class TonController extends BaseController {
 
     private void getTransactions(boolean reload, TonApi.InternalTransactionId fromTransaction, Runnable callback) {
         sendRequest(new TonApi.RawGetTransactions(null, new TonApi.AccountAddress(getUserConfig().tonAccountAddress), fromTransaction), response -> {
+
+            ArrayList<WalletTransaction> transactions;
+
             if (response instanceof TonApi.RawTransactions) {
                 TonApi.RawTransactions rawTransactions = (TonApi.RawTransactions) response;
-                ArrayList<WalletTransaction> transactions = new ArrayList<>(rawTransactions.transactions.length);
+                transactions = new ArrayList<>(rawTransactions.transactions.length);
                 for (int a = 0; a < rawTransactions.transactions.length; a++) {
                     transactions.add(new WalletTransaction(rawTransactions.transactions[a]));
                 }
+            } else {
+                transactions = new ArrayList<>(0);
+            }
 
-                AndroidUtilities.runOnUIThread(() -> {
-                    walletLoaded = true;
-                    boolean pendingChanged = false;
-                    if (!pendingTransactions.isEmpty()) {
-                        for (int a = 0, N = pendingTransactions.size(); a < N; a++) {
-                            WalletTransaction pending = pendingTransactions.get(a);
-                            for (int b = 0, N2 = transactions.size(); b < N2; b++) {
-                                WalletTransaction transaction = transactions.get(b);
-                                if (transaction.rawTransaction.inMsg != null) {
-                                    if (Arrays.equals(pending.rawTransaction.inMsg.bodyHash, transaction.rawTransaction.inMsg.bodyHash)) {
-                                        pendingTransactions.remove(a);
-                                        N--;
-                                        a--;
-                                        pendingChanged = true;
-                                        break;
-                                    }
+            AndroidUtilities.runOnUIThread(() -> {
+                walletLoaded = true;
+                boolean pendingChanged = false;
+                if (!pendingTransactions.isEmpty()) {
+                    for (int a = 0, N = pendingTransactions.size(); a < N; a++) {
+                        WalletTransaction pending = pendingTransactions.get(a);
+                        for (int b = 0, N2 = transactions.size(); b < N2; b++) {
+                            WalletTransaction transaction = transactions.get(b);
+                            if (transaction.rawTransaction.inMsg != null) {
+                                if (Arrays.equals(pending.rawTransaction.inMsg.bodyHash, transaction.rawTransaction.inMsg.bodyHash)) {
+                                    pendingTransactions.remove(a);
+                                    N--;
+                                    a--;
+                                    pendingChanged = true;
+                                    break;
                                 }
                             }
                         }
                     }
-                    if (onPendingTransactionsEmpty != null && pendingTransactions.isEmpty()) {
-                        onPendingTransactionsEmpty.run();
-                        onPendingTransactionsEmpty = null;
-                    }
-                    if (reload) {
-                        cachedTransactions.clear();
-                        cachedTransactions.addAll(transactions);
-                        saveCache();
-                    } else if (pendingChanged) {
-                        saveCache();
-                    }
-                    if (callback != null) {
-                        callback.run();
-                    }
-                    if (uiTransactionCallback != null) {
-                        uiTransactionCallback.run(reload, transactions);
-                    }
-                });
-            } else {
-                if (callback != null || uiTransactionCallback != null) {
-                    AndroidUtilities.runOnUIThread(() -> {
-                        if (callback != null) {
-                            callback.run();
-                        }
-                        if (uiTransactionCallback != null) {
-                            uiTransactionCallback.run(reload, null);
-                        }
-                    });
                 }
-
-            }
+                if (onPendingTransactionsEmpty != null && pendingTransactions.isEmpty()) {
+                    onPendingTransactionsEmpty.run();
+                    onPendingTransactionsEmpty = null;
+                }
+                if (reload) {
+                    cachedTransactions.clear();
+                    cachedTransactions.addAll(transactions);
+                    saveCache();
+                } else if (pendingChanged) {
+                    saveCache();
+                }
+                if (callback != null) {
+                    callback.run();
+                }
+                if (uiTransactionCallback != null) {
+                    uiTransactionCallback.run(reload, transactions);
+                }
+            });
         });
     }
 
