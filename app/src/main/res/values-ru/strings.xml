@@ -51,7 +51,7 @@
     <string name="WalletClose">ЗАКРЫТЬ</string>
     <string name="WalletSecretWords">24 секретных слова</string>
     <string name="WalletSecretWordsTitle">Секретные слова</string>
-    <string name="WalletSecretWordsInfo">Запишите эти 24 слова в правильном порядке, и сохраните их в надёжном месте.\n\nИспользуйте эти секретные слова для восстановления доступа к кошельку, если вы потеряете пароль или аккаунт Telegram.</string>
+    <string name="WalletSecretWordsInfo">Запишите эти 24 слова в правильном порядке, и сохраните их в надёжном месте.\n\nИспользуйте эти секретные слова для восстановления доступа к кошельку, если вы потеряете пароль или устройство.</string>
     <string name="WalletDone">Готово</string>
     <string name="WalletSecretWordsAlertTitle">Точно готово?</string>
     <string name="WalletSecretWordsAlertText">Вы потратили недостаточно времени для записи слов.</string>
@@ -141,8 +141,8 @@
     <string name="WalletChangePasscode">Сменить пароль</string>
     <string name="WalletDeleteTitle">Удалить кошелёк</string>
     <string name="WalletKeystoreInvalidated">К сожалению, ваш кошелёк больше недоступен из-за изменения параметров блокировки экрана вашего устройства. Введите ваши секретные слова для восстановления кошелька.</string>
-    <string name="WalletPermissionNoCamera">Telegram нужен доступ к вашей камере, чтобы сканировать QR-коды.</string>
-    <string name="WalletPermissionNoStorage">Telegram нужен доступ к вашему хранилищу, чтобы сохранять QR-коды.</string>
+    <string name="WalletPermissionNoCamera">Gram Wallet нужен доступ к вашей камере, чтобы сканировать QR-коды.</string>
+    <string name="WalletPermissionNoStorage">Gram Wallet нужен доступ к вашему хранилищу, чтобы сохранять QR-коды.</string>
     <string name="WalletSecurityAlertTitle">Безопасность</string>
     <string name="WalletSecurityAlertTextBiometric">Для усиления безопасности, мы рекомендуем вам установить биометрическую аутентификацию.</string>
     <string name="WalletSecurityAlertTextLockscreenBiometric">Для усиления безопасности, мы рекомендуем вам установить пароль для экрана блокировки и биометрическую аутентификацию.</string>
@@ -179,7 +179,6 @@
     <string name="WalletSendSameWalletProceed">Продолжить</string>
     <string name="WalletTonLinkNoWalletText">Эта ссылка может использоваться для отправки денег в TON Blockchain. Чтобы это сделать, вам нужно вначале создать кошелёк Gram.</string>
     <string name="WalletTonLinkNoWalletCreateWallet">Создать кошелёк</string>
-    <string name="WalletTelegramLogout">Вы точно хотите выйти из учётной записи?\n\nВыход отменит все ваши **секретные чаты** и **отвяжет ваш кошелёк Gram** от приложения.\n\nВы сможете восстановить кошелёк, введя 24 секретных слова – или импортировать другой кошелёк.</string>
     <string name="WalletPendingTransactions">Ожидаются</string>
     <string name="WalletDate">Дата</string>
     <string name="WalletFee">Комиссия блокчейна: ~%1$s Gram</string>
@@ -203,7 +202,7 @@
     <string name="WalletCreateBlockchainConfigLoadError">Приложение не смогло загрузить конфиг блокчейна. Убедитесь, что у вас работает интернет-соединение.</string>
     <string name="WalletSendSyncInProgress">Пожалуйста, подождите, пока кошелёк завершит синхронизацию с блокчейном TON.</string>
     <string name="GramWalletInfo">Кошелёк Gram позволяет вам совершать быстрые и надёжные переводы на основе блокчейна без посредников.</string>
-    <string name="WalletDeleteInfo">Это действие отключит кошелёк от приложения. Вы сможете восстановить кошелёк, введя 24 секретных слова – или импортировать другой кошелёк.\n\nКошельки расположены внутри блокчейна TON, который не контролируется Telegram. Если вы хотите удалить кошелёк, просто переведите с него все Gram и оставьте пустым.</string>
+    <string name="WalletDeleteInfo">Это действие отключит кошелёк от приложения. Вы сможете восстановить кошелёк, введя 24 секретных слова – или импортировать другой кошелёк.\n\nКошельки расположены внутри децентрализованного блокчейна TON. Если вы хотите удалить кошелёк, просто переведите с него все Gram и оставьте пустым.</string>
     <string name="WalletEncryptedMessage">Зашифрованное сообщение</string>
     <string name="WalletDecryptConfirmCredentials">Пожалуйста подтвердите свои данные для расшифровки сообщений транзакций.</string>
     <string name="WalletCantEncryptComment">**Внимание:** Ваш комментарий \"%1$s\" **не будет зашифрован**.</string>

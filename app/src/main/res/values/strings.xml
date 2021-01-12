@@ -178,7 +178,6 @@
     <string name="WalletSendSameWalletText">Sending Grams from a wallet to the same wallet doesn\'t make sense, you will simply waste a portion of the value on blockchain fees.</string>
     <string name="WalletSendSameWalletProceed">Proceed</string>
     <string name="WalletTonLinkNoWalletText">This link can be used to send money on the TON Blockchain. To do this, you need to set up a Gram wallet first.</string>
-    <string name="WalletSwitchedToMainnet">The Gram Wallet has switched from the testing to the main network.\n\nIn case you want to perform more testing you can switch back to the Test Gram network in Settings and reconnect your wallet using 24 secret words.</string>
     <string name="WalletTonLinkNoWalletCreateWallet">Create Wallet</string>
     <string name="WalletPendingTransactions">Pending</string>
     <string name="WalletDate">Date</string>
