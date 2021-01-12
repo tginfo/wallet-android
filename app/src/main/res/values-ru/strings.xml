@@ -166,7 +166,7 @@
     <string name="WalletTransactionAddressCopied">Адрес скопирован в буфер</string>
     <string name="WalletSecretWordsCopy">Копировать слова</string>
     <string name="WalletSecretWordsCopyQrDivider">или</string>
-    <string name="WalletSecretWordsSaveQr">Сохранить QR-код</string>
+    <string name="WalletSecretWordsSaveQr">Сохранить в QR-код</string>
     <string name="WalletSecretWordsCopied">Секретные слова скопированы в буфер обмена</string>
     <string name="WalletSecretWordsQrCopied">Секретные слова сохранены в вашу галерею</string>
     <string name="WalletSecretWordsQrError">Что-то пошло не так, расскажите об этом разработчику</string>
@@ -236,7 +236,7 @@
     <string name="WalletDefaultAccountName">Без имени %d</string>
     <string name="WalletSelectAccount">Выберите аккаунт</string>
 
-    <string name="WalletBackupKeepInSecret">Храните в секрете</string>
+    <string name="WalletBackupKeepInSecret">Храните в тайне</string>
     <string name="WalletLoginWithQr">Войти с помощью QR-кода</string>
 
 
