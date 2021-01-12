@@ -141,8 +141,8 @@
     <string name="WalletChangePasscode">Change Passcode</string>
     <string name="WalletDeleteTitle">Log out</string>
     <string name="WalletKeystoreInvalidated">Unfortunately, your wallet is no longer available because of a change in your device\'s lockscreen parameters. Please use your secret words to restore the wallet.</string>
-    <string name="WalletPermissionNoCamera">Wallet needs access to your camera so that you can scan QR codes.</string>
-    <string name="WalletPermissionNoStorage">Wallet needs access to your storage so that you can save QR codes.</string>
+    <string name="WalletPermissionNoCamera">Gram Wallet needs access to your camera so that you can scan QR codes.</string>
+    <string name="WalletPermissionNoStorage">Gram Wallet needs access to your storage so that you can save QR codes.</string>
     <string name="WalletSecurityAlertTitle">Security</string>
     <string name="WalletSecurityAlertTextBiometric">For better security, we recommend you to set up lockscreen biometric authentication.</string>
     <string name="WalletSecurityAlertTextLockscreenBiometric">For better security, we recommend you to set up a lockscreen password and biometric authentication.</string>
