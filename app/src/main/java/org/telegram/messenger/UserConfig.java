@@ -53,9 +53,9 @@ public class UserConfig extends BaseController {
     private int currentAccountColor;
 
 
-    public static int NETWORK_TYPE_TEST = 0;
-    public static int NETWORK_TYPE_FREETON = 1;
-    public static int NETWORK_TYPE_TON_COMMUNITY = 2;
+    public static final int NETWORK_TYPE_TEST = 0;
+    public static final int NETWORK_TYPE_FREETON = 1;
+    public static final int NETWORK_TYPE_TON_COMMUNITY = 2;
 
 
     private static volatile UserConfig[] Instance = new UserConfig[UserConfig.MAX_ACCOUNT_COUNT];
