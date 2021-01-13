@@ -7,6 +7,7 @@
 
 package org.telegram.ui.Wallet;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
@@ -16,14 +17,16 @@ import android.app.KeyguardManager;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Build;
 import android.os.SystemClock;
 import android.os.Vibrator;
@@ -37,7 +40,6 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
 import android.text.style.URLSpan;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.ActionMode;
 import android.view.Gravity;
@@ -61,6 +63,10 @@ import org.telegram.messenger.ApplicationLoader;
 import org.telegram.messenger.BuildVars;
 import org.telegram.messenger.FileLog;
 import org.telegram.messenger.LocaleController;
+import org.telegram.ui.ActionBar.ActionBarLayout;
+
+import ru.olaf.custom.Wallet.CameraScanLoginActivity;
+
 import org.tginfo.telegram.messenger.R;
 import org.telegram.messenger.TonController;
 import org.telegram.messenger.UserConfig;
@@ -90,6 +96,8 @@ import javax.crypto.Cipher;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import ru.olaf.custom.GalleryUtils;
+
 public class WalletCreateActivity extends BaseFragment {
 
     private RLottieImageView imageView;
@@ -100,6 +108,10 @@ public class WalletCreateActivity extends BaseFragment {
     private TextView importButton;
     private TextView settingsServerButton;
     private TextView copyWordsButton;
+    private TextView wordsToQRButton;
+    private TextView loginWithQrCodeButton;
+    private TextView divider;
+    private TextView skipStupidTestButton;
 
     private NumericEditText[] editTexts;
     private LinearLayout editTextContainer;
@@ -158,6 +170,12 @@ public class WalletCreateActivity extends BaseFragment {
 
     private int maxNumberWidth;
     private int maxEditNumberWidth;
+
+    private ActionBarLayout[] cameraScanLayout;
+
+    public static final int CAMERA_PERMISSION_REQUEST_CODE = 34;
+    public static final int STORAGE_PERMISSION_REQUEST_CODE = 35;
+
 
     private class HintAdapter extends RecyclerListView.SelectionAdapter {
 
@@ -625,6 +643,36 @@ public class WalletCreateActivity extends BaseFragment {
             hintPopupWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_UNSPECIFIED);
             hintPopupWindow.getContentView().setFocusableInTouchMode(true);
             hintPopupWindow.setFocusable(false);
+
+            skipStupidTestButton = new TextView(context);
+            skipStupidTestButton.setPadding(AndroidUtilities.dp(5), 0, AndroidUtilities.dp(5), 0);
+            skipStupidTestButton.setGravity(Gravity.CENTER);
+            skipStupidTestButton.setTextColor(Theme.getColor(Theme.key_windowBackgroundWhiteBlueText2));
+            skipStupidTestButton.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
+            skipStupidTestButton.setTypeface(AndroidUtilities.getTypeface("fonts/rmedium.ttf"));
+            skipStupidTestButton.setText(LocaleController.getString("WalletTestTimeSkipButton", R.string.WalletTestTimeSkipButton));
+            skipStupidTestButton.setBackgroundDrawable(Theme.createSimpleSelectorRoundRectDrawable(AndroidUtilities.dp(4), Theme.getColor(Theme.key_windowBackgroundWhite), Theme.getColor(Theme.key_windowBackgroundWhiteGrayText7)));
+            skipStupidTestButton.setOnClickListener(v -> {
+                if (fragmentToRemove != null) {
+                    fragmentToRemove.removeSelfFromStack();
+                }
+                if (getTonController().isWaitingForUserPasscode()) {
+                    presentFragment(new WalletCreateActivity(TYPE_PERFECT), true);
+                } else {
+                    presentFragment(new WalletCreateActivity(TYPE_READY), true);
+                }
+            });
+
+            loginWithQrCodeButton = new TextView(context);
+            loginWithQrCodeButton.setPadding(AndroidUtilities.dp(5), 0, AndroidUtilities.dp(5), 0);
+            loginWithQrCodeButton.setGravity(Gravity.CENTER);
+            loginWithQrCodeButton.setTextColor(Theme.getColor(Theme.key_wallet_whiteText));
+            loginWithQrCodeButton.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
+            loginWithQrCodeButton.setTypeface(AndroidUtilities.getTypeface("fonts/rmedium.ttf"));
+            loginWithQrCodeButton.setText(LocaleController.getString("WalletLoginWithQr", R.string.WalletLoginWithQr));
+            loginWithQrCodeButton.setBackgroundDrawable(Theme.createSimpleSelectorRoundRectDrawable(AndroidUtilities.dp(4), Theme.getColor(Theme.key_wallet_buttonBackground), Theme.getColor(Theme.key_wallet_buttonPressedBackground)));
+
+
         } else if (currentType == TYPE_KEY_GENERATED) {
             if (resumeCreation) {
                 biometricPromtHelper = new BiometricPromtHelper(this);
@@ -635,12 +683,31 @@ public class WalletCreateActivity extends BaseFragment {
             }
         } else if (currentType == TYPE_24_WORDS) {
             copyWordsButton = new TextView(context);
-            copyWordsButton.setPadding(AndroidUtilities.dp(34), 0, AndroidUtilities.dp(34), 0);
+            copyWordsButton.setPadding(AndroidUtilities.dp(5), 0, AndroidUtilities.dp(5), 0);
             copyWordsButton.setGravity(Gravity.CENTER);
             copyWordsButton.setTextColor(Theme.getColor(Theme.key_windowBackgroundWhiteBlueText2));
             copyWordsButton.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
             copyWordsButton.setTypeface(AndroidUtilities.getTypeface("fonts/rmedium.ttf"));
             copyWordsButton.setText(LocaleController.getString("WalletSecretWordsCopy", R.string.WalletSecretWordsCopy));
+            copyWordsButton.setBackgroundDrawable(Theme.createSimpleSelectorRoundRectDrawable(AndroidUtilities.dp(4), Theme.getColor(Theme.key_windowBackgroundWhite), Theme.getColor(Theme.key_windowBackgroundWhiteGrayText7)));
+
+            wordsToQRButton = new TextView(context);
+            wordsToQRButton.setPadding(AndroidUtilities.dp(5), 0, AndroidUtilities.dp(5), 0);
+            wordsToQRButton.setGravity(Gravity.CENTER);
+            wordsToQRButton.setTextColor(Theme.getColor(Theme.key_windowBackgroundWhiteBlueText2));
+            wordsToQRButton.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
+            wordsToQRButton.setTypeface(AndroidUtilities.getTypeface("fonts/rmedium.ttf"));
+            wordsToQRButton.setText(LocaleController.getString("WalletSecretWordsSaveQr", R.string.WalletSecretWordsSaveQr));
+            wordsToQRButton.setBackgroundDrawable(Theme.createSimpleSelectorRoundRectDrawable(AndroidUtilities.dp(4), Theme.getColor(Theme.key_windowBackgroundWhite), Theme.getColor(Theme.key_windowBackgroundWhiteGrayText7)));
+
+            divider = new TextView(context);
+            divider.setTextColor(Theme.getColor(Theme.key_windowBackgroundWhiteGrayText6));
+            divider.setGravity(Gravity.CENTER);
+            divider.setLineSpacing(AndroidUtilities.dp(2), 1);
+            divider.setPadding(AndroidUtilities.dp(0), 0, AndroidUtilities.dp(0), 0);
+            divider.setMovementMethod(new AndroidUtilities.LinkMovementMethodMy());
+            divider.setText(LocaleController.getString("WalletSecretWordsCopyQrDivider", R.string.WalletSecretWordsCopyQrDivider));
+
         }
 
         imageView = new RLottieImageView(context);
@@ -720,14 +787,12 @@ public class WalletCreateActivity extends BaseFragment {
                         builder.setPositiveButton(LocaleController.getString("WalletSecretWordsAlertButton", R.string.WalletSecretWordsAlertButton), null);
 
                         if (secretWordsCopied)
-                            builder.setNegativeButton(LocaleController.getString("WalletSecretWordsAlertSkipButton", R.string.WalletSecretWordsAlertSkipButton), new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    WalletCreateActivity fragment = new WalletCreateActivity(TYPE_WORDS_CHECK);
-                                    fragment.fragmentToRemove = WalletCreateActivity.this;
-                                    fragment.secretWords = secretWords;
-                                    presentFragment(fragment);
-                                }
+                            builder.setNegativeButton(LocaleController.getString("WalletSecretWordsAlertSkipButton", R.string.WalletSecretWordsAlertSkipButton), (dialogInterface, i) -> {
+                                WalletCreateActivity fragment = new WalletCreateActivity(TYPE_WORDS_CHECK);
+                                fragment.fragmentToRemove = WalletCreateActivity.this;
+                                fragment.secretWords = secretWords;
+                                fragment.secretWordsCopied = secretWordsCopied;
+                                presentFragment(fragment);
                             });
 
 
@@ -737,6 +802,7 @@ public class WalletCreateActivity extends BaseFragment {
                     WalletCreateActivity fragment = new WalletCreateActivity(TYPE_WORDS_CHECK);
                     fragment.fragmentToRemove = this;
                     fragment.secretWords = secretWords;
+                    fragment.secretWordsCopied = secretWordsCopied;
                     presentFragment(fragment);
                     break;
                 }
@@ -1092,19 +1158,44 @@ public class WalletCreateActivity extends BaseFragment {
                             secretWordsCopied = true;
                         }
                     });
-                    scrollViewLinearLayout.addView(copyWordsButton, LayoutHelper.createLinear(LayoutHelper.WRAP_CONTENT, 42, Gravity.CENTER_HORIZONTAL | Gravity.TOP, 0, 36, 0, 0));
+                    wordsToQRButton.setOnClickListener(view -> {
+                        saveQrCode();
+                    });
 
+                    LinearLayout backupRow = new LinearLayout(context);
+                    backupRow.setGravity(Gravity.CENTER_HORIZONTAL);
+                    backupRow.setOrientation(LinearLayout.HORIZONTAL);
+                    backupRow.addView(copyWordsButton, LayoutHelper.createLinear(LayoutHelper.WRAP_CONTENT, 42, Gravity.CENTER_HORIZONTAL, 0, 0, 5, 0));
+                    backupRow.addView(divider, LayoutHelper.createLinear(LayoutHelper.WRAP_CONTENT, 42, Gravity.CENTER_HORIZONTAL, 0, 0, 0, 0));
+                    backupRow.addView(wordsToQRButton, LayoutHelper.createLinear(LayoutHelper.WRAP_CONTENT, 42, Gravity.CENTER_HORIZONTAL, 5, 0, 0, 0));
+                    scrollViewLinearLayout.addView(backupRow, LayoutHelper.createLinear(LayoutHelper.MATCH_PARENT, LayoutHelper.WRAP_CONTENT, Gravity.CENTER_HORIZONTAL | Gravity.TOP, 0, 30, 0, 0));
 
                 } else if (currentType == TYPE_WORDS_CHECK || currentType == TYPE_IMPORT) {
+
+                    if (currentType == TYPE_IMPORT) {
+                        loginWithQrCodeButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                openQrReader();
+                            }
+                        });
+                        scrollViewLinearLayout.addView(loginWithQrCodeButton, LayoutHelper.createLinear(LayoutHelper.WRAP_CONTENT, 42, Gravity.CENTER_HORIZONTAL, 0, 10, 0, 0));
+                    }
+
                     maxEditNumberWidth = 0;
                     editTexts = new NumericEditText[currentType == TYPE_WORDS_CHECK ? 3 : 24];
                     editTextContainer = scrollViewLinearLayout;
                     for (int a = 0; a < editTexts.length; a++) {
                         scrollViewLinearLayout.addView(editTexts[a] = new NumericEditText(context, a), LayoutHelper.createLinear(220, 36, Gravity.CENTER_HORIZONTAL, 0, a == 0 ? 21 : 13, 0, 0));
                     }
-                }
 
-                scrollViewLinearLayout.addView(buttonTextView, LayoutHelper.createLinear(LayoutHelper.WRAP_CONTENT, 42, Gravity.CENTER_HORIZONTAL | Gravity.TOP, 0, 36, 0, 33));
+                }
+                scrollViewLinearLayout.addView(buttonTextView, LayoutHelper.createLinear(LayoutHelper.WRAP_CONTENT, 42, Gravity.CENTER_HORIZONTAL | Gravity.TOP, 0, 36, 0, 36));
+
+                if (currentType == TYPE_WORDS_CHECK && secretWordsCopied)
+                    scrollViewLinearLayout.addView(skipStupidTestButton, LayoutHelper.createLinear(LayoutHelper.WRAP_CONTENT, 42, Gravity.CENTER_HORIZONTAL, 0, 5, 0, 0));
+
+
                 fragmentView = container;
 
                 actionBarBackground = new View(context) {
@@ -1452,6 +1543,143 @@ public class WalletCreateActivity extends BaseFragment {
         return fragmentView;
     }
 
+
+    private void saveQrCode() {
+        if (getParentActivity() == null)
+            return;
+
+
+        if (Build.VERSION.SDK_INT >= 23 && getParentActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            getParentActivity().requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION_REQUEST_CODE);
+            return;
+        }
+
+
+        Bitmap qrCode = getTonController().createTonQR(getParentActivity(), TextUtils.join("\n", secretWords), null);
+
+        if (qrCode != null) {
+            Bitmap background = Bitmap.createBitmap(1000, 1000, Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(background);
+            canvas.drawColor(0xffffffff);
+
+            float positionLeft = (background.getWidth() / 2.0f) - (qrCode.getWidth() / 2.0f);
+            float positionTop = (background.getHeight() / 2.0f) - (qrCode.getHeight() / 2.0f);
+            float positionBottom = (background.getHeight() / 2.0f) + (qrCode.getHeight() / 2.0f);
+
+            canvas.drawBitmap(qrCode, positionLeft, positionTop, null);
+
+            Paint textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+            textPaint.setTextAlign(Paint.Align.CENTER);
+            textPaint.setColor(0xff000000);
+            textPaint.setTextSize(80);
+            textPaint.setTypeface(Typeface.createFromAsset(getParentActivity().getAssets(), "fonts/rmedium.ttf"));
+
+
+            float accountNameTextX = canvas.getWidth() / 2.0f;
+            float accountNameTextY = ((1000 - ((1000 - positionBottom) / 2)) - ((textPaint.descent() + textPaint.ascent()) / 2));
+
+            //TODO После мультиакка сменить текст на имя аккаунта
+            String text = "";
+            switch (getUserConfig().getCurrentNetworkType()) {
+                case UserConfig.NETWORK_TYPE_TEST:
+                    text = LocaleController.getString("WalletTestNetwork", R.string.WalletTestNetwork);
+                    break;
+
+                case UserConfig.NETWORK_TYPE_FREETON:
+                    text = LocaleController.getString("WalletFreeTonNetwork", R.string.WalletFreeTonNetwork);
+                    break;
+
+                case UserConfig.NETWORK_TYPE_TON_COMMUNITY:
+                    text = LocaleController.getString("WalletTONCommunityNetwork", R.string.WalletTONCommunityNetwork);
+                    break;
+            }
+            canvas.drawText(text, accountNameTextX, accountNameTextY, textPaint);
+
+
+            float warningTextX = canvas.getWidth() / 2.0f;
+            float warningTextY = (positionTop / 2.0f) - ((textPaint.descent() + textPaint.ascent()) / 2.0f);
+            canvas.drawText(LocaleController.getString("WalletBackupKeepInSecret", R.string.WalletBackupKeepInSecret), warningTextX, warningTextY, textPaint);
+
+            secretWordsCopied = GalleryUtils.saveImageToGallery(
+                    getParentActivity(),
+                    String.format("%s (%s).png", text, LocaleController.getInstance().chatFullDate.format(System.currentTimeMillis())),
+                    background
+            );
+
+            if (secretWordsCopied)
+                Toast.makeText(getParentActivity(), LocaleController.getString("WalletSecretWordsQrCopied", R.string.WalletSecretWordsQrCopied), Toast.LENGTH_LONG).show();
+             else
+                Toast.makeText(getParentActivity(), LocaleController.getString("WalletSecretWordsQrError", R.string.WalletSecretWordsQrError), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void openQrReader() {
+        if (getParentActivity() == null)
+            return;
+
+        if (Build.VERSION.SDK_INT >= 23 && getParentActivity().checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            getParentActivity().requestPermissions(new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_REQUEST_CODE);
+            return;
+        }
+
+        cameraScanLayout = CameraScanLoginActivity.showAsSheet(WalletCreateActivity.this, new CameraScanLoginActivity.CameraScanActivityDelegate() {
+            @Override
+            public void didFindQr(String text) {
+                if (editTexts.length > 0) {
+                    editTexts[0].setText(text);
+                    createWallet();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onRequestPermissionsResultFragment(int requestCode, String[] permissions, int[] grantResults) {
+        if (getParentActivity() == null) {
+            return;
+        }
+        if (requestCode == CAMERA_PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                openQrReader();
+            } else {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getParentActivity());
+                builder.setTitle(LocaleController.getString("AppName", R.string.AppName));
+                builder.setMessage(LocaleController.getString("WalletPermissionNoCamera", R.string.WalletPermissionNoCamera));
+                builder.setNegativeButton(LocaleController.getString("PermissionOpenSettings", R.string.PermissionOpenSettings), (dialog, which) -> {
+                    try {
+                        Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                        intent.setData(Uri.parse("package:" + ApplicationLoader.applicationContext.getPackageName()));
+                        getParentActivity().startActivity(intent);
+                    } catch (Exception e) {
+                        FileLog.e(e);
+                    }
+                });
+                builder.setPositiveButton(LocaleController.getString("OK", R.string.OK), null);
+                builder.show();
+            }
+        } else if (requestCode == STORAGE_PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                saveQrCode();
+            } else {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getParentActivity());
+                builder.setTitle(LocaleController.getString("AppName", R.string.AppName));
+                builder.setMessage(LocaleController.getString("WalletPermissionNoStorage", R.string.WalletPermissionNoStorage));
+                builder.setNegativeButton(LocaleController.getString("PermissionOpenSettings", R.string.PermissionOpenSettings), (dialog, which) -> {
+                    try {
+                        Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                        intent.setData(Uri.parse("package:" + ApplicationLoader.applicationContext.getPackageName()));
+                        getParentActivity().startActivity(intent);
+                    } catch (Exception e) {
+                        FileLog.e(e);
+                    }
+                });
+                builder.setPositiveButton(LocaleController.getString("OK", R.string.OK), null);
+                builder.show();
+            }
+        }
+    }
+
+
     private void createWallet() {
         BiometricPromtHelper.askForBiometric(this, new BiometricPromtHelper.ContinueCallback() {
 
@@ -1576,6 +1804,9 @@ public class WalletCreateActivity extends BaseFragment {
             if (resultCode == Activity.RESULT_OK) {
                 doExport(null);
             }
+        }
+        if (cameraScanLayout != null && cameraScanLayout[0] != null) {
+            cameraScanLayout[0].fragmentsStack.get(0).onActivityResultFragment(requestCode, resultCode, data);
         }
     }
 
@@ -1770,10 +2001,27 @@ public class WalletCreateActivity extends BaseFragment {
 
                 new ThemeDescription(importButton, ThemeDescription.FLAG_TEXTCOLOR, null, null, null, null, Theme.key_windowBackgroundWhiteBlueText2),
                 new ThemeDescription(settingsServerButton, ThemeDescription.FLAG_TEXTCOLOR, null, null, null, null, Theme.key_windowBackgroundWhiteBlueText2),
+
+
                 new ThemeDescription(copyWordsButton, ThemeDescription.FLAG_TEXTCOLOR, null, null, null, null, Theme.key_windowBackgroundWhiteBlueText2),
+                new ThemeDescription(copyWordsButton, ThemeDescription.FLAG_USEBACKGROUNDDRAWABLE, null, null, null, null, Theme.key_windowBackgroundWhite),
+                new ThemeDescription(copyWordsButton, ThemeDescription.FLAG_USEBACKGROUNDDRAWABLE | ThemeDescription.FLAG_DRAWABLESELECTEDSTATE, null, null, null, null, Theme.key_windowBackgroundWhiteGrayText7),
+                new ThemeDescription(wordsToQRButton, ThemeDescription.FLAG_TEXTCOLOR, null, null, null, null, Theme.key_windowBackgroundWhiteBlueText2),
+                new ThemeDescription(wordsToQRButton, ThemeDescription.FLAG_USEBACKGROUNDDRAWABLE, null, null, null, null, Theme.key_windowBackgroundWhite),
+                new ThemeDescription(wordsToQRButton, ThemeDescription.FLAG_USEBACKGROUNDDRAWABLE | ThemeDescription.FLAG_DRAWABLESELECTEDSTATE, null, null, null, null, Theme.key_windowBackgroundWhiteGrayText7),
+
+                new ThemeDescription(loginWithQrCodeButton, ThemeDescription.FLAG_TEXTCOLOR, null, null, null, null, Theme.key_windowBackgroundWhiteBlueText2),
+                new ThemeDescription(loginWithQrCodeButton, ThemeDescription.FLAG_USEBACKGROUNDDRAWABLE, null, null, null, null, Theme.key_windowBackgroundWhite),
+                new ThemeDescription(loginWithQrCodeButton, ThemeDescription.FLAG_USEBACKGROUNDDRAWABLE | ThemeDescription.FLAG_DRAWABLESELECTEDSTATE, null, null, null, null, Theme.key_windowBackgroundWhiteGrayText7),
+
+                new ThemeDescription(divider, ThemeDescription.FLAG_TEXTCOLOR, null, null, null, null, Theme.key_windowBackgroundWhiteGrayText6),
+                new ThemeDescription(skipStupidTestButton, ThemeDescription.FLAG_TEXTCOLOR, null, null, null, null, Theme.key_windowBackgroundWhiteBlueText2),
+                new ThemeDescription(skipStupidTestButton, ThemeDescription.FLAG_USEBACKGROUNDDRAWABLE, null, null, null, null, Theme.key_windowBackgroundWhite),
+                new ThemeDescription(skipStupidTestButton, ThemeDescription.FLAG_USEBACKGROUNDDRAWABLE | ThemeDescription.FLAG_DRAWABLESELECTEDSTATE, null, null, null, null, Theme.key_windowBackgroundWhiteGrayText7),
 
 
                 new ThemeDescription(titleTextView, ThemeDescription.FLAG_TEXTCOLOR, null, null, null, null, Theme.key_windowBackgroundWhiteBlackText),
+
                 new ThemeDescription(descriptionText, ThemeDescription.FLAG_TEXTCOLOR, null, null, null, null, Theme.key_windowBackgroundWhiteGrayText6),
                 new ThemeDescription(descriptionText2, ThemeDescription.FLAG_TEXTCOLOR, null, null, null, null, Theme.key_windowBackgroundWhiteGrayText6),
                 new ThemeDescription(descriptionText2, ThemeDescription.FLAG_LINKCOLOR | ThemeDescription.FLAG_CHECKTAG, null, null, null, null, Theme.key_windowBackgroundWhiteBlueText2),

@@ -38,7 +38,9 @@
     <string name="WalletScanCode">Scan QR Code</string>
     <string name="WalletQRCode">QR Code</string>
     <string name="WalletScanImageNotFound">No wallet address found in the selected image.</string>
+    <string name="WalletScanImageLoginNotFound">No login data found in the selected image.</string>
     <string name="WalletScanCodeNotFound">No wallet address found</string>
+    <string name="WalletScanCodeLoginNotFound">No login data found</string>
     <string name="GramWallet">Gram Wallet</string>
     <string name="CreateMyWallet">Create My Wallet</string>
     <string name="ImportExistingWallet">Import existing wallet</string>
@@ -62,6 +64,7 @@
     <string name="WalletTestTimeAlertText">The secret words you have entered do not match the ones in the list.</string>
     <string name="WalletTestTimeAlertButtonSee">See words</string>
     <string name="WalletTestTimeAlertButtonTry">Try again</string>
+    <string name="WalletTestTimeSkipButton">Are you serious? Skip this</string>
     <string name="WalletReady">Ready to go!</string>
     <string name="WalletReadyInfo">You are all set. Now you have a wallet that only you control — directly, without middlemen or bankers.</string>
     <string name="WalletView">View My Wallet</string>
@@ -127,7 +130,7 @@
     <string name="WalletEnterPasscode">Enter passcode</string>
     <string name="WalletPasscodeLength">Your passcode contains %1$s.</string>
     <string name="WalletSendingGrams">Sending Grams</string>
-    <string name="WalletSendingGramsInfo">Please wait a few seconds for your transaction to be processed...</string>
+    <string name="WalletSendingGramsInfo">Please wait a few seconds for your transaction to be processed…</string>
     <string name="WalletSendConfirmCredentials">Please confirm your credentials to send Grams.</string>
     <string name="WalletExportConfirmContinue">Please confirm your credentials to continue.</string>
     <string name="WalletExportConfirmCredentials">Please confirm your credentials to export your wallet.</string>
@@ -138,7 +141,8 @@
     <string name="WalletChangePasscode">Change Passcode</string>
     <string name="WalletDeleteTitle">Log out</string>
     <string name="WalletKeystoreInvalidated">Unfortunately, your wallet is no longer available because of a change in your device\'s lockscreen parameters. Please use your secret words to restore the wallet.</string>
-    <string name="WalletPermissionNoCamera">Wallet needs access to your camera so that you can scan QR codes.</string>
+    <string name="WalletPermissionNoCamera">Gram Wallet needs access to your camera so that you can scan QR codes.</string>
+    <string name="WalletPermissionNoStorage">Gram Wallet needs access to your storage so that you can save QR codes.</string>
     <string name="WalletSecurityAlertTitle">Security</string>
     <string name="WalletSecurityAlertTextBiometric">For better security, we recommend you to set up lockscreen biometric authentication.</string>
     <string name="WalletSecurityAlertTextLockscreenBiometric">For better security, we recommend you to set up a lockscreen password and biometric authentication.</string>
@@ -161,7 +165,11 @@
     <string name="WalletTransactionSendGrams">Send Grams to this Address</string>
     <string name="WalletTransactionAddressCopied">Address copied to clipboard</string>
     <string name="WalletSecretWordsCopy">Copy secret words</string>
+    <string name="WalletSecretWordsCopyQrDivider">or</string>
+    <string name="WalletSecretWordsSaveQr">Save QR-code</string>
     <string name="WalletSecretWordsCopied">Secret words copied to clipboard</string>
+    <string name="WalletSecretWordsQrCopied">Secret words stored to your gallery</string>
+    <string name="WalletSecretWordsQrError">Something went wrong, please tell about it to developer</string>
     <string name="WalletStorageFee">%1$s storage fee</string>
     <string name="WalletTransactionFee">%1$s transaction fee</string>
     <string name="WalletBlockchainFees">%1$s blockchain fees</string>
@@ -170,7 +178,6 @@
     <string name="WalletSendSameWalletText">Sending Grams from a wallet to the same wallet doesn\'t make sense, you will simply waste a portion of the value on blockchain fees.</string>
     <string name="WalletSendSameWalletProceed">Proceed</string>
     <string name="WalletTonLinkNoWalletText">This link can be used to send money on the TON Blockchain. To do this, you need to set up a Gram wallet first.</string>
-    <string name="WalletSwitchedToMainnet">The Gram Wallet has switched from the testing to the main network.\n\nIn case you want to perform more testing you can switch back to the Test Gram network in Settings and reconnect your wallet using 24 secret words.</string>
     <string name="WalletTonLinkNoWalletCreateWallet">Create Wallet</string>
     <string name="WalletPendingTransactions">Pending</string>
     <string name="WalletDate">Date</string>
@@ -207,7 +214,6 @@
     <string name="WalletTestNetwork">TestNet2 Network</string>
     <string name="WalletTONCommunityNetwork">TONCommunity.org Network</string>
     <string name="WalletFreeTonNetwork">Free TON Network</string>
-
     <string name="WalletEmptyTransaction">Empty transaction</string>
     <string name="WalletInitTransaction">Wallet initialization</string>
     <string name="WalletTosUrl"> </string>
@@ -217,17 +223,22 @@
     <string name="WalletWhatIsGram">What is Gram?</string>
     <string name="WalletWhereIsGram">Where to get Gram?</string>
     <string name="WalletOtherIsGram">Answers to other questions</string>
-    <string name="WalletWhatIsGramFull">Gram is a TON blockchain token.\n\There are several networks exist: Free TON, testnet2 and TONcommunity.org are now available.\n</string>
+    <string name="WalletWhatIsGramFull">Gram is a TON blockchain token.\n\nThere are several networks exist: Free TON, testnet2 and TONcommunity.org are now available.\n</string>
     <string name="WalletDifference">What is the difference between networks</string>
-    <string name="WalletDifferenceFull">Free TON is an alternative network developed by ten teams. The internal cryptocurrency is Crystal.\n\ntestnet2 (test network) is intended only for testing the network, checking the operation of transfers, tokens have no value and are not sold for real money.\n\nTONcommunity.org is a Chinese community network.\n</string>
+    <string name="WalletDifferenceFull">Free TON is an alternative network developed by several teams. The internal cryptocurrency is Crystal.\n\ntestnet2 (test network) is intended only for testing the network, checking the operation of transfers, tokens have no value and are not sold for real money.\n\nTONcommunity.org is a chinese community network.\n</string>
     <string name="WalletTransactionsInfo">Transactions history</string>
     <string name="WalletTransactionsInfoWallet">Wallet address</string>
     <string name="WalletTransactionsInfoError">Error while loading, try later or contact with developers</string>
 
     <string name="CreateMyWalletTerms"> </string>
 
+
     <string name="WalletDefaultAccountName">No name %d</string>
     <string name="WalletSelectAccount">Select account</string>
+
+    <string name="WalletBackupKeepInSecret">Keep in secret</string>
+    <string name="WalletLoginWithQr">Log-in with QR code</string>
+
 
     <!--plural-->
     <string name="Digits_zero">%1$d digits</string>

@@ -38,7 +38,9 @@
     <string name="WalletScanCode">Сканировать QR-код</string>
     <string name="WalletQRCode">QR-код</string>
     <string name="WalletScanImageNotFound">Адрес кошелька на указанном изображении не найден.</string>
+    <string name="WalletScanImageLoginNotFound">Данных для входа на указанном изображении не найдено.</string>
     <string name="WalletScanCodeNotFound">Адрес кошелька не найден</string>
+    <string name="WalletScanCodeLoginNotFound">Данных для входа не найдено</string>
     <string name="GramWallet">Gram Wallet</string>
     <string name="CreateMyWallet">Создать кошелёк</string>
     <string name="ImportExistingWallet">Импорт кошелька</string>
@@ -49,7 +51,7 @@
     <string name="WalletClose">ЗАКРЫТЬ</string>
     <string name="WalletSecretWords">24 секретных слова</string>
     <string name="WalletSecretWordsTitle">Секретные слова</string>
-    <string name="WalletSecretWordsInfo">Запишите эти 24 слова в правильном порядке, и сохраните их в надёжном месте.\n\nИспользуйте эти секретные слова для восстановления доступа к кошельку, если вы потеряете пароль или аккаунт Telegram.</string>
+    <string name="WalletSecretWordsInfo">Запишите эти 24 слова в правильном порядке, и сохраните их в надёжном месте.\n\nИспользуйте эти секретные слова для восстановления доступа к кошельку, если вы потеряете пароль или устройство.</string>
     <string name="WalletDone">Готово</string>
     <string name="WalletSecretWordsAlertTitle">Точно готово?</string>
     <string name="WalletSecretWordsAlertText">Вы потратили недостаточно времени для записи слов.</string>
@@ -62,6 +64,7 @@
     <string name="WalletTestTimeAlertText">Введённые вами секретные слова не совпадают с теми, что были в списке.</string>
     <string name="WalletTestTimeAlertButtonSee">Просмотреть слова</string>
     <string name="WalletTestTimeAlertButtonTry">Ещё раз</string>
+    <string name="WalletTestTimeSkipButton">Вы серьзено? Пропустить</string>
     <string name="WalletReady">Всё готово!</string>
     <string name="WalletReadyInfo">Всё настроено. Теперь у вас есть кошелёк, который контролируете только вы — напрямую, без посредников или банкиров.</string>
     <string name="WalletView">Открыть кошелёк</string>
@@ -127,7 +130,7 @@
     <string name="WalletEnterPasscode">Введите пароль</string>
     <string name="WalletPasscodeLength">Ваш пароль содержит %1$s.</string>
     <string name="WalletSendingGrams">Отправка Gram</string>
-    <string name="WalletSendingGramsInfo">Подождите пару секунд для обработки транзакции...</string>
+    <string name="WalletSendingGramsInfo">Подождите пару секунд для обработки транзакции…</string>
     <string name="WalletSendConfirmCredentials">Подтвердите ваши учётные данные для отправки Gram.</string>
     <string name="WalletExportConfirmContinue">Подтвердите ваши учётные данные для продолжения.</string>
     <string name="WalletExportConfirmCredentials">Подтвердите ваши учётные данные для экспорта кошелька.</string>
@@ -138,7 +141,8 @@
     <string name="WalletChangePasscode">Сменить пароль</string>
     <string name="WalletDeleteTitle">Удалить кошелёк</string>
     <string name="WalletKeystoreInvalidated">К сожалению, ваш кошелёк больше недоступен из-за изменения параметров блокировки экрана вашего устройства. Введите ваши секретные слова для восстановления кошелька.</string>
-    <string name="WalletPermissionNoCamera">Telegram нужен доступ к вашей камере, чтобы сканировать QR-коды.</string>
+    <string name="WalletPermissionNoCamera">Gram Wallet нужен доступ к вашей камере, чтобы сканировать QR-коды.</string>
+    <string name="WalletPermissionNoStorage">Gram Wallet нужен доступ к вашему хранилищу, чтобы сохранять QR-коды.</string>
     <string name="WalletSecurityAlertTitle">Безопасность</string>
     <string name="WalletSecurityAlertTextBiometric">Для усиления безопасности, мы рекомендуем вам установить биометрическую аутентификацию.</string>
     <string name="WalletSecurityAlertTextLockscreenBiometric">Для усиления безопасности, мы рекомендуем вам установить пароль для экрана блокировки и биометрическую аутентификацию.</string>
@@ -160,8 +164,12 @@
     <string name="WalletTransactionSender">Отправитель</string>
     <string name="WalletTransactionSendGrams">Отправить Gram на этот адрес</string>
     <string name="WalletTransactionAddressCopied">Адрес скопирован в буфер</string>
-    <string name="WalletSecretWordsCopy">Копировать секретные слова</string>
+    <string name="WalletSecretWordsCopy">Копировать слова</string>
+    <string name="WalletSecretWordsCopyQrDivider">или</string>
+    <string name="WalletSecretWordsSaveQr">Сохранить в QR-код</string>
     <string name="WalletSecretWordsCopied">Секретные слова скопированы в буфер обмена</string>
+    <string name="WalletSecretWordsQrCopied">Секретные слова сохранены в вашу галерею</string>
+    <string name="WalletSecretWordsQrError">Что-то пошло не так, расскажите об этом разработчику</string>
     <string name="WalletStorageFee">коммиссия хранилища: %1$s</string>
     <string name="WalletTransactionFee">комиссия транзакции: %1$s</string>
     <string name="WalletBlockchainFees">комиссия блокчейна: %1$s</string>
@@ -171,7 +179,6 @@
     <string name="WalletSendSameWalletProceed">Продолжить</string>
     <string name="WalletTonLinkNoWalletText">Эта ссылка может использоваться для отправки денег в TON Blockchain. Чтобы это сделать, вам нужно вначале создать кошелёк Gram.</string>
     <string name="WalletTonLinkNoWalletCreateWallet">Создать кошелёк</string>
-    <string name="WalletTelegramLogout">Вы точно хотите выйти из учётной записи?\n\nВыход отменит все ваши **секретные чаты** и **отвяжет ваш кошелёк Gram** от приложения.\n\nВы сможете восстановить кошелёк, введя 24 секретных слова – или импортировать другой кошелёк.</string>
     <string name="WalletPendingTransactions">Ожидаются</string>
     <string name="WalletDate">Дата</string>
     <string name="WalletFee">Комиссия блокчейна: ~%1$s Gram</string>
@@ -195,7 +202,7 @@
     <string name="WalletCreateBlockchainConfigLoadError">Приложение не смогло загрузить конфиг блокчейна. Убедитесь, что у вас работает интернет-соединение.</string>
     <string name="WalletSendSyncInProgress">Пожалуйста, подождите, пока кошелёк завершит синхронизацию с блокчейном TON.</string>
     <string name="GramWalletInfo">Кошелёк Gram позволяет вам совершать быстрые и надёжные переводы на основе блокчейна без посредников.</string>
-    <string name="WalletDeleteInfo">Это действие отключит кошелёк от приложения. Вы сможете восстановить кошелёк, введя 24 секретных слова – или импортировать другой кошелёк.\n\nКошельки расположены внутри блокчейна TON, который не контролируется Telegram. Если вы хотите удалить кошелёк, просто переведите с него все Gram и оставьте пустым.</string>
+    <string name="WalletDeleteInfo">Это действие отключит кошелёк от приложения. Вы сможете восстановить кошелёк, введя 24 секретных слова – или импортировать другой кошелёк.\n\nКошельки расположены внутри децентрализованного блокчейна TON. Если вы хотите удалить кошелёк, просто переведите с него все Gram и оставьте пустым.</string>
     <string name="WalletEncryptedMessage">Зашифрованное сообщение</string>
     <string name="WalletDecryptConfirmCredentials">Пожалуйста подтвердите свои данные для расшифровки сообщений транзакций.</string>
     <string name="WalletCantEncryptComment">**Внимание:** Ваш комментарий \"%1$s\" **не будет зашифрован**.</string>
@@ -218,11 +225,21 @@
     <string name="WalletOtherIsGram">Ответы на другие вопросы</string>
     <string name="WalletWhatIsGramFull">Gram – это токен блокчейна TON.\n\nСуществуют несколько сетей: сейчас доступены сети Free TON, testnet2 и TONcommunity.org\n</string>
     <string name="WalletDifference">Чем отличаются сети</string>
-    <string name="WalletDifferenceFull">Free TON – альтернативная сеть, разработанная десятком команд. Внутренней криптовалютой является Crystal.\n\ntestnet2 (тестовая сеть) предназначена только для тестирования сети, проверки работы переводов, токены не имеют ценности и не продаются за реальные деньги.\n\nTONcommunity.org – сеть китайского комьюнити\n</string>    <string name="WalletTransactionsInfo">История переводов</string>
+    <string name="WalletDifferenceFull">Free TON – альтернативная сеть, разработанная десятком команд. Внутренней криптовалютой является Crystal.\n\ntestnet2 (тестовая сеть) предназначена только для тестирования сети, проверки работы переводов, токены не имеют ценности и не продаются за реальные деньги.\n\nTONcommunity.org – сеть китайского комьюнити\n</string>
+    <string name="WalletTransactionsInfo">История переводов</string>
     <string name="WalletTransactionsInfoWallet">Адрес кошелька</string>
     <string name="WalletTransactionsInfoError">Произошла ошибка, попробуйте позже или свяжитесь с разработчиками</string>
 
     <string name="CreateMyWalletTerms"> </string>
+
+
+    <string name="WalletDefaultAccountName">Без имени %d</string>
+    <string name="WalletSelectAccount">Выберите аккаунт</string>
+
+    <string name="WalletBackupKeepInSecret">Храните в тайне</string>
+    <string name="WalletLoginWithQr">Войти с помощью QR-кода</string>
+
+
     <!--plural-->
     <string name="Digits_zero">%1$d цифр</string>
     <string name="Digits_one">%1$d цифра</string>

@@ -41,6 +41,7 @@
         android:theme="@style/Theme.TMessages.Start"
         android:supportsRtl="false"
         android:label="@string/AppName"
+        android:requestLegacyExternalStorage="true"
         tools:replace="android:supportsRtl">
 
         <activity
